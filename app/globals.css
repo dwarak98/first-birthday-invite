@@ -181,27 +181,6 @@ body {
   }
 }
 
-.rsvp-glow {
-  box-shadow:
-    0 0 14px 2px rgba(232, 201, 138, 0.55),
-    0 0 32px 8px rgba(156, 61, 69, 0.4);
-  animation: rsvp-pulse 2.2s ease-in-out infinite;
-}
-
-@keyframes rsvp-pulse {
-  0%,
-  100% {
-    box-shadow:
-      0 0 12px 2px rgba(232, 201, 138, 0.45),
-      0 0 28px 6px rgba(156, 61, 69, 0.35);
-  }
-  50% {
-    box-shadow:
-      0 0 20px 6px rgba(232, 201, 138, 0.75),
-      0 0 42px 12px rgba(156, 61, 69, 0.5);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -212,8 +191,7 @@ body {
   .flame-outer,
   .flame-inner,
   .candle-ring-light,
-  .candle-ring,
-  .rsvp-glow {
+  .candle-ring {
     animation: none;
   }
 }

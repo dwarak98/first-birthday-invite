@@ -140,15 +140,9 @@ export function Invitation({ locale }: { locale: Locale }) {
             </span>
           </p>
           <div className="mx-auto mt-3 h-px w-full bg-gold/35" />
-          <a
-            href="#rsvp"
-            className="rsvp-glow mt-4 inline-flex w-full items-center justify-center rounded-full bg-rose px-5 py-3.5 text-sm font-semibold tracking-wide text-white"
-          >
-            {copy.rsvpCta}
-          </a>
         </div>
 
-        <section id="rsvp" className="scroll-mt-6 px-5 pt-8 pb-7 sm:px-8 sm:pb-8">
+        <section id="rsvp" className="px-5 pt-8 pb-7 sm:px-8 sm:pb-8">
           <h2
             className={`text-center text-2xl text-ink ${tamil ? "font-semibold" : "font-display"}`}
           >

@@ -31,7 +31,6 @@ export function copyFor(locale: Locale) {
     rsvpLead: tamil
       ? "தயவுசெய்து உங்கள் வருகையை தெரியப்படுத்துங்கள். குடும்பத்துடன் வாருங்கள் — மற்றதை நாங்கள் பார்த்துக் கொள்கிறோம்."
       : "Kindly let us know if you can join us. Come with your family — we'll take care of the rest.",
-    rsvpCta: tamil ? "தயவுசெய்து RSVP செய்யவும்" : "Kindly RSVP",
     nameLabel: tamil ? "உங்கள் பெயர்" : "Your name",
     attendingLabel: tamil ? "வருகிறீர்களா?" : "Are you attending?",
     yes: tamil ? "ஆம், வருகிறோம்" : "Yes, we'll be there",
