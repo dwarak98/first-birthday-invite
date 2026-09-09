@@ -15,6 +15,7 @@ export function copyFor(locale: Locale) {
     intro: tamil
       ? `எங்கள் மகள் ஸ்ரிஷ்டிகா த்வர்கநாத்தின் முதல் பிறந்தநாளை உங்களுடன் கொண்டாட விரும்புகிறோம். உங்கள் வருகை எங்களுக்கு மிகவும் முக்கியம்.`
       : `We would love for you to celebrate ${name}'s first birthday with us. Your presence would mean the world.`,
+    occasion: tamil ? "முதல் பிறந்தநாள் கொண்டாட்டம்" : "First Birthday Celebration",
     fromLabel: tamil ? "அன்புடன்" : "With love",
     hosts: tamil ? event.hostsTa : event.hostsEn,
     whenLabel: tamil ? "தேதி & நேரம்" : "Date & time",

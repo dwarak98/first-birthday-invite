@@ -69,6 +69,15 @@ export function Invitation({ locale }: { locale: Locale }) {
               {rest}
             </p>
           ) : null}
+          <p
+            className={`mt-4 text-rose ${
+              tamil
+                ? "text-base font-semibold"
+                : "text-[13px] font-semibold tracking-[0.22em] uppercase"
+            }`}
+          >
+            {copy.occasion}
+          </p>
         </header>
 
         <div className="mx-auto mt-6 h-px w-16 bg-gold/50" />

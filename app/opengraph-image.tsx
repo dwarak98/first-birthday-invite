@@ -69,7 +69,19 @@ export default async function OgImage() {
           </div>
           <div
             style={{
-              marginTop: 28,
+              marginTop: 18,
+              fontSize: 18,
+              fontWeight: 600,
+              letterSpacing: "0.22em",
+              textTransform: "uppercase",
+              color: "#9c3d45",
+            }}
+          >
+            {copy.occasion}
+          </div>
+          <div
+            style={{
+              marginTop: 22,
               fontSize: 24,
               color: "#3a1c1a",
             }}
