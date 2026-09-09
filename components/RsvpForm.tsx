@@ -72,20 +72,7 @@ export function RsvpForm({ locale }: { locale: Locale }) {
       </fieldset>
 
       {attending === "yes" ? (
-        <label className="block">
-          <span className="mb-1 block text-[10px] font-medium tracking-[0.18em] text-muted uppercase">
-            {copy.peopleLabel}
-          </span>
-          <input
-            required
-            type="number"
-            name="people"
-            min={1}
-            max={20}
-            defaultValue={1}
-            className={fieldClass}
-          />
-        </label>
+        <input type="hidden" name="people" value="1" />
       ) : (
         <input type="hidden" name="people" value="0" />
       )}

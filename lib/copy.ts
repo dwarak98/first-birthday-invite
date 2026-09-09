@@ -27,10 +27,11 @@ export function copyFor(locale: Locale) {
     mapsCta: tamil ? "வரைபடத்தில் திற" : "Open in Maps",
     expectLabel: tamil ? "என்ன நடக்கும்" : "What to expect",
     expect: tamil ? event.whatToExpectTa : event.whatToExpectEn,
-    rsvpTitle: tamil ? "வருகிறீர்களா?" : "Will you join us?",
+    rsvpTitle: tamil ? "உங்கள் பதில் எங்களுக்கு முக்கியம்" : "We'd love to hear from you",
     rsvpLead: tamil
-      ? `உணவு மற்றும் இடத்தை திட்டமிட, தயவுசெய்து RSVP செய்யவும். ${event.rsvpByTa}.`
-      : `Please RSVP so we can plan food and seating. ${event.rsvpByEn}.`,
+      ? "தயவுசெய்து உங்கள் வருகையை தெரியப்படுத்துங்கள். குடும்பத்துடன் வாருங்கள் — மற்றதை நாங்கள் பார்த்துக் கொள்கிறோம்."
+      : "Kindly let us know if you can join us. Come with your family — we'll take care of the rest.",
+    rsvpCta: tamil ? "தயவுசெய்து RSVP செய்யவும்" : "Kindly RSVP",
     nameLabel: tamil ? "உங்கள் பெயர்" : "Your name",
     attendingLabel: tamil ? "வருகிறீர்களா?" : "Are you attending?",
     yes: tamil ? "ஆம், வருகிறோம்" : "Yes, we'll be there",
