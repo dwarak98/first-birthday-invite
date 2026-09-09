@@ -18,6 +18,7 @@ export function FirstBirthdayMark({
   animate = true,
 }: FirstBirthdayMarkProps) {
   const glowId = "first-birthday-flame-glow";
+  const frostingId = "first-birthday-frosting";
 
   return (
     <svg
@@ -31,10 +32,14 @@ export function FirstBirthdayMark({
     >
       <defs>
         <radialGradient id={glowId} cx="50%" cy="58%" r="50%">
-          <stop offset="0%" stopColor="#ffd27a" stopOpacity="0.9" />
-          <stop offset="55%" stopColor="#f0a04a" stopOpacity="0.35" />
+          <stop offset="0%" stopColor="#ffd27a" stopOpacity="0.85" />
+          <stop offset="70%" stopColor="#f0a04a" stopOpacity="0.2" />
           <stop offset="100%" stopColor="#f0a04a" stopOpacity="0" />
         </radialGradient>
+        <linearGradient id={frostingId} x1="70" y1="64" x2="70" y2="86">
+          <stop offset="0%" stopColor="#fbe4d4" />
+          <stop offset="100%" stopColor="#f3cbb8" />
+        </linearGradient>
       </defs>
 
       <circle cx="70" cy="70" r="66" stroke={gold} strokeWidth="0.7" opacity="0.35" />
@@ -44,8 +49,8 @@ export function FirstBirthdayMark({
         cy="70"
         r="61"
         stroke="#e8c98a"
-        strokeWidth="5"
-        opacity={animate ? 0.2 : 0}
+        strokeWidth="4"
+        opacity={animate ? 0.12 : 0}
       />
       <circle
         className={animate ? "candle-ring" : undefined}
@@ -55,75 +60,81 @@ export function FirstBirthdayMark({
         stroke={gold}
         strokeWidth="1.4"
       />
-      <circle cx="70" cy="70" r="53" stroke={rose} strokeWidth="0.45" opacity="0.25" />
 
       <g className={animate ? "flame" : undefined}>
         <ellipse
           className={animate ? "flame-halo" : undefined}
-          cx="70"
-          cy="38"
-          rx="15"
-          ry="19"
+          cx="73"
+          cy="32"
+          rx="8"
+          ry="10"
           fill={`url(#${glowId})`}
         />
         <path
           className={animate ? "flame-outer" : undefined}
           fill="#e86a3a"
-          d="M70 27c-5.4 6.8-5.8 13.2 0 18.6 5.8-5.4 5.4-11.8 0-18.6Z"
+          d="M73 24.5c-3.2 4.2-3.4 8 0 11.2 3.4-3.2 3.2-7 0-11.2Z"
         />
         <path
           className={animate ? "flame-inner" : undefined}
           fill="#ffd27a"
-          d="M70 33.2c-2.6 3.4-2.8 6.4 0 9.2 2.8-2.8 2.6-5.8 0-9.2Z"
+          d="M73 28.2c-1.5 2-1.6 3.8 0 5.4 1.6-1.6 1.5-3.4 0-5.4Z"
         />
       </g>
 
-      <rect x="68.2" y="44.5" width="3.6" height="23" rx="1.2" fill={gold} />
-      <rect x="68.2" y="51" width="3.6" height="2.2" fill={rose} opacity="0.55" />
-      <rect x="68.2" y="58.5" width="3.6" height="2.2" fill={rose} opacity="0.55" />
+      <rect x="72.2" y="35.5" width="1.6" height="4.2" rx="0.6" fill="#5c4033" />
+      <path
+        fill={cream}
+        stroke={gold}
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+        d="M64 47.5 73 36.8h6.2V62h7.2v4.6H56.2V62h7.4V51.2L64 52.2Z"
+      />
 
       <rect
-        x="51"
-        y="67"
-        width="38"
-        height="19"
-        rx="4"
-        fill={cream}
-        stroke={rose}
-        strokeWidth="1.5"
-      />
-      <rect
-        x="39"
-        y="85"
-        width="62"
-        height="22"
+        x="48"
+        y="66.5"
+        width="44"
+        height="20"
         rx="5"
+        fill={`url(#${frostingId})`}
+        stroke={rose}
+        strokeWidth="1.5"
+      />
+      <path
+        fill={rose}
+        opacity="0.28"
+        d="M54 66.5c2.2 4 6.6 4 8.8 0 2.2 4 6.6 4 8.8 0 2.2 4 6.6 4 8.8 0"
+      />
+      <rect
+        x="36"
+        y="85"
+        width="68"
+        height="24"
+        rx="6"
         fill={cream}
         stroke={rose}
         strokeWidth="1.5"
       />
       <path
         stroke={gold}
-        strokeWidth="1"
+        strokeWidth="1.35"
         strokeLinecap="round"
-        d="M55 85.8c2.2 3.4 6.2 3.4 8.4 0 2.2 3.4 6.2 3.4 8.4 0 2.2 3.4 6.2 3.4 8.4 0"
+        d="M48 85.6c2.6 3.8 7.2 3.8 9.8 0 2.6 3.8 7.2 3.8 9.8 0 2.6 3.8 7.2 3.8 9.8 0 2.6 3.8 7.2 3.8 9.8 0"
       />
-
-      <rect x="68.6" y="91" width="2.8" height="11" rx="0.8" fill={rose} />
-      <rect x="64.4" y="101.2" width="11.2" height="1.7" rx="0.8" fill={rose} />
 
       <path
         stroke={gold}
-        strokeWidth="1.3"
+        strokeWidth="1.5"
         strokeLinecap="round"
-        d="M34 109.5h72"
+        d="M32 111.5h76"
       />
       <path
         stroke={gold}
-        strokeWidth="0.8"
+        strokeWidth="0.9"
         strokeLinecap="round"
-        opacity="0.55"
-        d="M42 113.5h56"
+        opacity="0.5"
+        d="M42 115.2h56"
       />
     </svg>
   );
