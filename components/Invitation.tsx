@@ -64,9 +64,33 @@ export function Invitation({ locale }: { locale: Locale }) {
               {rest}
             </p>
           ) : null}
-          <p className="mt-3 text-[11px] font-medium tracking-[0.28em] text-gold uppercase">
-            {age}
-          </p>
+          <div
+            className="mt-5 inline-flex items-center gap-3 rounded-full bg-rose px-5 py-2.5 text-white"
+            aria-label={age}
+          >
+            <span
+              className={`leading-none ${
+                tamil ? "text-3xl font-bold" : "font-display text-4xl font-semibold"
+              }`}
+            >
+              1
+            </span>
+            <span
+              className={`text-left font-bold leading-[1.15] ${
+                tamil ? "text-xs tracking-wide" : "text-[11px] tracking-[0.18em] uppercase"
+              }`}
+            >
+              {tamil ? (
+                age
+              ) : (
+                <>
+                  First
+                  <br />
+                  Birthday
+                </>
+              )}
+            </span>
+          </div>
         </header>
 
         <p className="mx-auto mt-5 max-w-[22rem] text-center text-[13px] leading-6 text-muted">
@@ -109,22 +133,6 @@ export function Invitation({ locale }: { locale: Locale }) {
             {copy.mapsCta}
             <span aria-hidden>↗</span>
           </a>
-        </section>
-
-        <section className="mt-5">
-          <p className="text-center text-[10px] font-medium tracking-[0.28em] text-muted uppercase">
-            {copy.expectLabel}
-          </p>
-          <ul className="mt-3 grid grid-cols-3 gap-2 text-center">
-            {copy.expect.map((item) => (
-              <li
-                key={item}
-                className="rounded-xl border border-gold/25 px-2 py-3 text-[11px] leading-4 font-medium text-ink"
-              >
-                {item}
-              </li>
-            ))}
-          </ul>
         </section>
 
         <p className="mt-6 text-center text-[13px] text-muted">

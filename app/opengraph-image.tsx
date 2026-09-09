@@ -1,6 +1,5 @@
 import { ImageResponse } from "next/og";
 import { copyFor } from "@/lib/copy";
-import { event } from "@/lib/event";
 
 export const alt = "First birthday invitation";
 export const size = { width: 1200, height: 630 };
@@ -66,14 +65,31 @@ export default async function OgImage() {
           </div>
           <div
             style={{
-              marginTop: 16,
-              fontSize: 18,
-              letterSpacing: "0.28em",
-              textTransform: "uppercase",
-              color: "#c4a06a",
+              marginTop: 20,
+              display: "flex",
+              alignItems: "center",
+              gap: 12,
+              background: "#9c3d45",
+              color: "#fff8f1",
+              borderRadius: 999,
+              padding: "10px 22px",
             }}
           >
-            {event.ageEn}
+            <div style={{ fontSize: 36, fontWeight: 600, lineHeight: 1 }}>1</div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                fontSize: 14,
+                fontWeight: 700,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                lineHeight: 1.15,
+              }}
+            >
+              <div>First</div>
+              <div>Birthday</div>
+            </div>
           </div>
           <div
             style={{
