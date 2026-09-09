@@ -115,24 +115,26 @@ body {
 }
 
 .invite-rocket {
-  height: 3px;
-  margin-top: -1.5px;
+  width: 3px;
+  height: 22px;
+  margin-left: -1.5px;
+  margin-top: -22px;
   border-radius: 2px;
-  box-shadow: 0 0 6px color-mix(in srgb, #c4a06a 55%, transparent);
-  transform-origin: left center;
+  box-shadow: 0 0 8px color-mix(in srgb, #c4a06a 70%, transparent);
   animation-name: invite-rocket;
+  animation-timing-function: cubic-bezier(0.12, 0.62, 0.2, 1);
 }
 
 .invite-cracker-core {
-  height: 7px;
-  margin: -3.5px 0 0 -3.5px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
   border-radius: 999px;
   animation-name: invite-cracker-core;
 }
 
 .invite-sparkle {
-  height: 11px;
-  margin: -5.5px 0 0 -5.5px;
+  height: 13px;
+  margin: -6.5px 0 0 -6.5px;
   clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
   transform-origin: center;
   animation-name: invite-sparkle;
@@ -229,65 +231,61 @@ body {
 
 @keyframes invite-cracker-streak {
   0% {
-    opacity: 0;
-    transform: rotate(var(--rot)) translateX(0) scaleX(0.35);
-  }
-  14% {
     opacity: 1;
-    transform: rotate(var(--rot)) translateX(3px) scaleX(1);
+    transform: rotate(var(--rot)) translateX(0) scaleX(0.25);
+  }
+  28% {
+    opacity: 1;
+    transform: rotate(var(--rot)) translateX(calc(var(--dist) * 0.45)) scaleX(1);
   }
   100% {
     opacity: 0;
-    transform: rotate(var(--rot)) translateX(var(--dist)) scaleX(0.2);
+    transform: rotate(var(--rot)) translateX(var(--dist)) scaleX(0.35);
   }
 }
 
 @keyframes invite-rocket {
   0% {
-    opacity: 0;
-    transform: rotate(var(--rot)) translateX(0) scaleX(0.45);
-  }
-  10% {
     opacity: 1;
-    transform: rotate(var(--rot)) translateX(8px) scaleX(1);
+    transform: translateY(0);
   }
-  82% {
+  86% {
     opacity: 1;
-    transform: rotate(var(--rot)) translateX(calc(var(--dist) * 0.92)) scaleX(1);
+    transform: translateY(var(--dist));
   }
   100% {
     opacity: 0;
-    transform: rotate(var(--rot)) translateX(var(--dist)) scaleX(0.3);
+    transform: translateY(var(--dist));
   }
 }
 
 @keyframes invite-cracker-core {
   0% {
-    opacity: 0;
-    transform: scale(0.3);
+    opacity: 0.9;
+    transform: scale(0.2);
   }
-  20% {
+  18% {
     opacity: 1;
-    transform: scale(1.35);
+    transform: scale(1.6);
   }
   100% {
     opacity: 0;
-    transform: scale(0.2);
+    transform: scale(0.4);
   }
 }
 
 @keyframes invite-sparkle {
   0% {
-    opacity: 0;
-    transform: rotate(var(--rot)) translate(0) scale(0.3);
-  }
-  18% {
     opacity: 1;
-    transform: rotate(calc(var(--rot) + 20deg)) translateY(-6px) scale(1.1);
+    transform: rotate(var(--rot)) translateX(0) scale(0.4);
+  }
+  30% {
+    opacity: 1;
+    transform: rotate(var(--rot)) translateX(calc(var(--dist) * 0.5)) scale(1);
   }
   100% {
     opacity: 0;
-    transform: rotate(calc(var(--rot) + 50deg)) translateY(calc(var(--dist) * -1)) scale(0.2);
+    transform: rotate(var(--rot)) translateX(var(--dist)) scale(0.25);
   }
 }
 

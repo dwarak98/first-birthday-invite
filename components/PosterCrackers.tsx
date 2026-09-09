@@ -17,7 +17,7 @@ type Bit = {
 };
 
 const COLORS = ["#c4a06a", "#9c3d45", "#fff8f1", "#8b3a42", "#f6e4d8", "#c4a06a"];
-const LAUNCH_EVERY_MS = 260;
+const LAUNCH_EVERY_MS = 900;
 
 function isControl(target: EventTarget | null) {
   return target instanceof Element && Boolean(target.closest("a, button, input, textarea, select, label"));
@@ -52,58 +52,73 @@ export function PosterCrackers({
     pressId.current = null;
   }
 
-  function spawnBurst(x: number, y: number) {
+  function spawnBurst(x: number, y: number, radius: number) {
     const next: Bit[] = [
       {
         id: ++nextId.current,
         kind: "core",
         x,
         y,
-        color: "#c4a06a",
+        color: "#fff8f1",
         rot: 0,
         dist: 0,
-        length: 8,
+        length: 16,
         delay: 0,
-        duration: 480,
+        duration: 640,
       },
     ];
 
-    for (let s = 0; s < 12; s += 1) {
+    for (let s = 0; s < 24; s += 1) {
       next.push({
         id: ++nextId.current,
         kind: "streak",
         x,
         y,
         color: COLORS[s % COLORS.length],
-        rot: (s / 12) * 360 + (Math.random() - 0.5) * 22,
-        dist: 16 + Math.random() * 22,
-        length: 7 + Math.random() * 8,
-        delay: s * 8,
-        duration: 480 + Math.random() * 160,
+        rot: (s / 24) * 360,
+        dist: radius * (0.82 + (s % 3) * 0.08),
+        length: 16 + (s % 4) * 3,
+        delay: 0,
+        duration: 980 + (s % 5) * 40,
       });
     }
 
-    for (let s = 0; s < 4; s += 1) {
+    for (let s = 0; s < 16; s += 1) {
+      next.push({
+        id: ++nextId.current,
+        kind: "streak",
+        x,
+        y,
+        color: COLORS[(s + 2) % COLORS.length],
+        rot: (s / 16) * 360 + 11,
+        dist: radius * 0.48,
+        length: 10,
+        delay: 40,
+        duration: 820,
+      });
+    }
+
+    for (let s = 0; s < 10; s += 1) {
       next.push({
         id: ++nextId.current,
         kind: "spark",
         x,
         y,
         color: COLORS[s % 4],
-        rot: Math.random() * 360,
-        dist: 10 + Math.random() * 16,
-        length: 11,
-        delay: 20 + s * 18,
-        duration: 520,
+        rot: (s / 10) * 360,
+        dist: radius * 0.7,
+        length: 13,
+        delay: 30,
+        duration: 900,
       });
     }
 
-    setBits((current) => [...current, ...next].slice(-140));
+    setBits((current) => [...current, ...next].slice(-160));
     const last = next[next.length - 1].id;
     const first = next[0].id;
     window.setTimeout(() => {
       setBits((current) => current.filter((item) => item.id < first || item.id > last));
-    }, 780);
+    }, 1200);
   }
 
   function launchRockets(count: number) {
@@ -112,47 +127,45 @@ export function PosterCrackers({
 
     const w = poster.clientWidth;
     const h = poster.clientHeight;
+    const pad = 78;
     const next: Bit[] = [];
 
     for (let i = 0; i < count; i += 1) {
-      const x1 = 28 + Math.random() * Math.max(w - 56, 40);
-      const y1 = h - 18;
-      const x2 = 32 + Math.random() * Math.max(w - 64, 40);
-      const y2 = 52 + Math.random() * Math.max(h * 0.4, 80);
-      const dx = x2 - x1;
-      const dy = y2 - y1;
-      const flight = 500 + Math.random() * 140;
-      const delay = i * 40;
+      const x = pad + Math.random() * Math.max(w - pad * 2, 48);
+      const y1 = h - 22;
+      const y2 = 96 + Math.random() * 36;
+      const flight = 1280 + Math.random() * 280;
+      const radius = Math.min(w * 0.36, h * 0.24, x - 12, w - x - 12, 108);
       const rocket: Bit = {
         id: ++nextId.current,
         kind: "rocket",
-        x: x1,
+        x,
         y: y1,
-        color: i % 2 === 0 ? "#c4a06a" : "#9c3d45",
-        rot: (Math.atan2(dy, dx) * 180) / Math.PI,
-        dist: Math.hypot(dx, dy),
-        length: 16 + Math.random() * 6,
-        delay,
+        color: "#c4a06a",
+        rot: 0,
+        dist: y2 - y1,
+        length: 20,
+        delay: i * 120,
         duration: flight,
       };
       next.push(rocket);
-      window.setTimeout(() => spawnBurst(x2, y2), delay + flight * 0.84);
+      window.setTimeout(() => spawnBurst(x, y2, Math.max(radius, 64)), rocket.delay + flight);
     }
 
-    setBits((current) => [...current, ...next].slice(-140));
+    setBits((current) => [...current, ...next].slice(-160));
     const first = next[0]?.id;
     const last = next[next.length - 1]?.id;
     if (first === undefined || last === undefined) return;
     window.setTimeout(() => {
       setBits((current) => current.filter((item) => item.id < first || item.id > last));
-    }, 760);
+    }, 1800);
   }
 
   function startShow(pointer: number) {
     if (prefersReducedMotion()) return;
     stopShow();
     pressId.current = pointer;
-    launchRockets(2);
+    launchRockets(1);
     loopRef.current = window.setInterval(() => {
       if (pressId.current === null) return;
       launchRockets(1);
@@ -200,7 +213,7 @@ export function PosterCrackers({
                   left: bit.x,
                   top: bit.y,
                   background: bit.color,
-                  width: bit.kind === "core" ? 7 : bit.length,
+                  width: bit.kind === "rocket" ? 3 : bit.kind === "core" ? 16 : bit.length,
                   ["--rot" as string]: `${bit.rot}deg`,
                   ["--dist" as string]: `${bit.dist}px`,
                   ["--delay" as string]: `${bit.delay}ms`,
