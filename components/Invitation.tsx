@@ -48,7 +48,11 @@ export function Invitation({ locale }: { locale: Locale }) {
           <LanguageToggle locale={locale} />
         </div>
 
-        <header className="mt-6 text-center">
+        <div className="mt-5 flex justify-center">
+          <FirstBirthdayMark title={age} />
+        </div>
+
+        <header className="mt-4 text-center">
           <h1
             className={`leading-[0.95] text-ink ${
               tamil ? "text-[2.35rem] font-semibold" : "font-display text-[3.15rem] font-medium tracking-tight sm:text-[3.4rem]"
@@ -66,10 +70,6 @@ export function Invitation({ locale }: { locale: Locale }) {
             </p>
           ) : null}
         </header>
-
-        <div className="mt-6 flex justify-center">
-          <FirstBirthdayMark title={age} />
-        </div>
 
         <div className="mx-auto mt-6 h-px w-16 bg-gold/50" />
 

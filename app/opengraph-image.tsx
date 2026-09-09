@@ -45,9 +45,12 @@ export default async function OgImage() {
           >
             {copy.scriptEyebrow}
           </div>
+          <div style={{ marginTop: 18, display: "flex" }}>
+            <FirstBirthdayMark title="1st Birthday" size={96} />
+          </div>
           <div
             style={{
-              marginTop: 22,
+              marginTop: 16,
               fontSize: 72,
               color: "#3a1c1a",
               lineHeight: 1,
@@ -63,9 +66,6 @@ export default async function OgImage() {
             }}
           >
             {rest.join(" ")}
-          </div>
-          <div style={{ marginTop: 22, display: "flex" }}>
-            <FirstBirthdayMark title="1st Birthday" size={118} />
           </div>
           <div
             style={{
