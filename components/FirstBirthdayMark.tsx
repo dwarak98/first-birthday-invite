@@ -61,37 +61,6 @@ export function FirstBirthdayMark({
         strokeWidth="1.4"
       />
 
-      <g className={animate ? "flame" : undefined}>
-        <ellipse
-          className={animate ? "flame-halo" : undefined}
-          cx="71"
-          cy="30"
-          rx="8"
-          ry="10"
-          fill={`url(#${glowId})`}
-        />
-        <path
-          className={animate ? "flame-outer" : undefined}
-          fill="#e86a3a"
-          d="M71 22.5c-3.2 4.2-3.4 8 0 11.2 3.4-3.2 3.2-7 0-11.2Z"
-        />
-        <path
-          className={animate ? "flame-inner" : undefined}
-          fill="#ffd27a"
-          d="M71 26.2c-1.5 2-1.6 3.8 0 5.4 1.6-1.6 1.5-3.4 0-5.4Z"
-        />
-      </g>
-
-      <rect x="70.2" y="33.5" width="1.6" height="5" rx="0.6" fill="#5c4033" />
-      <path
-        fill={cream}
-        stroke={gold}
-        strokeWidth="1.7"
-        strokeLinejoin="round"
-        strokeLinecap="round"
-        d="M54 50.5 66 36h10v29H66V47Z"
-      />
-
       <rect
         x="48"
         y="66.5"
@@ -137,6 +106,45 @@ export function FirstBirthdayMark({
         opacity="0.5"
         d="M42 115.2h56"
       />
+
+      <text
+        x="70"
+        y="64"
+        textAnchor="middle"
+        fill={cream}
+        stroke={gold}
+        strokeWidth="1.4"
+        paintOrder="stroke"
+        style={{
+          fontFamily:
+            "var(--font-display), Georgia, 'Times New Roman', Times, serif",
+          fontSize: "40px",
+          fontWeight: 600,
+        }}
+      >
+        1
+      </text>
+
+      <g className={animate ? "flame" : undefined}>
+        <ellipse
+          className={animate ? "flame-halo" : undefined}
+          cx="70"
+          cy="28"
+          rx="7"
+          ry="9"
+          fill={`url(#${glowId})`}
+        />
+        <path
+          className={animate ? "flame-outer" : undefined}
+          fill="#e86a3a"
+          d="M70 21c-2.8 3.8-3 7.2 0 10 3-2.8 2.8-6.2 0-10Z"
+        />
+        <path
+          className={animate ? "flame-inner" : undefined}
+          fill="#ffd27a"
+          d="M70 24.4c-1.3 1.8-1.4 3.4 0 4.8 1.4-1.4 1.3-3 0-4.8Z"
+        />
+      </g>
     </svg>
   );
 }
