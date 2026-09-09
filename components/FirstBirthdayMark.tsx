@@ -107,28 +107,18 @@ export function FirstBirthdayMark({
         d="M42 115.2h56"
       />
 
-      <text
-        x="70"
-        y="64"
-        textAnchor="middle"
+      <path
         fill={cream}
         stroke={gold}
-        strokeWidth="1.4"
-        paintOrder="stroke"
-        style={{
-          fontFamily:
-            "var(--font-display), Georgia, 'Times New Roman', Times, serif",
-          fontSize: "40px",
-          fontWeight: 600,
-        }}
-      >
-        1
-      </text>
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+        d="M63.1 41.1 71.1 36h5.8v25.7H86V66H54v-4.3h11.4V44.6Z"
+      />
 
       <g className={animate ? "flame" : undefined}>
         <ellipse
           className={animate ? "flame-halo" : undefined}
-          cx="70"
+          cx="74"
           cy="28"
           rx="7"
           ry="9"
@@ -137,12 +127,12 @@ export function FirstBirthdayMark({
         <path
           className={animate ? "flame-outer" : undefined}
           fill="#e86a3a"
-          d="M70 21c-2.8 3.8-3 7.2 0 10 3-2.8 2.8-6.2 0-10Z"
+          d="M74 21c-2.8 3.8-3 7.2 0 10 3-2.8 2.8-6.2 0-10Z"
         />
         <path
           className={animate ? "flame-inner" : undefined}
           fill="#ffd27a"
-          d="M70 24.4c-1.3 1.8-1.4 3.4 0 4.8 1.4-1.4 1.3-3 0-4.8Z"
+          d="M74 24.4c-1.3 1.8-1.4 3.4 0 4.8 1.4-1.4 1.3-3 0-4.8Z"
         />
       </g>
     </svg>
