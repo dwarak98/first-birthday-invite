@@ -100,9 +100,9 @@ export function FirstBirthdayMark({
       <path
         fill={gold}
         stroke="#5a3210"
-        strokeWidth="1.8"
+        strokeWidth="1.6"
         strokeLinejoin="round"
-        d="M63.1 41.1 71.1 36h5.8v25.7H86V66H54v-4.3h11.4V44.6Z"
+        d="M65 50 71.5 40h5V61.5H79v3.2H69V61.5H71.5V48Z"
       />
 
       <g className={animate ? "flame" : undefined}>
