@@ -14,24 +14,12 @@ export async function GET(request: Request) {
   }
 
   const rows = await listRsvps();
-  const header = [
-    "name",
-    "attending",
-    "adults",
-    "children",
-    "phone",
-    "note",
-    "language",
-    "created_at",
-  ];
+  const header = ["name", "attending", "people", "language", "created_at"];
   const body = rows.map((row) =>
     [
       csvCell(row.name),
       row.attending ? "yes" : "no",
-      row.adults,
-      row.children,
-      csvCell(row.phone || ""),
-      csvCell(row.note || ""),
+      row.people,
       row.locale,
       row.createdAt,
     ].join(","),

@@ -13,8 +13,8 @@ export function copyFor(locale: Locale) {
       ? `${name} சிறுமியின் ${event.ageTa}`
       : `Celebrate ${name}'s ${event.ageEn}`,
     intro: tamil
-      ? `எங்கள் மகளின் முதல் பிறந்தநாளை உங்களுடன் கொண்டாட விரும்புகிறோம். உங்கள் வருகை எங்களுக்கு மிகவும் முக்கியம்.`
-      : `We would love for you to celebrate our daughter's first birthday with us. Your presence would mean the world.`,
+      ? `எங்கள் மகள் ஸ்ரிஷ்டிகா த்வர்கநாத்தின் முதல் பிறந்தநாளை உங்களுடன் கொண்டாட விரும்புகிறோம். உங்கள் வருகை எங்களுக்கு மிகவும் முக்கியம்.`
+      : `We would love for you to celebrate ${name}'s first birthday with us. Your presence would mean the world.`,
     fromLabel: tamil ? "அன்புடன்" : "With love",
     hosts: tamil ? event.hostsTa : event.hostsEn,
     whenLabel: tamil ? "தேதி & நேரம்" : "Date & time",
@@ -34,10 +34,7 @@ export function copyFor(locale: Locale) {
     attendingLabel: tamil ? "வருகிறீர்களா?" : "Are you attending?",
     yes: tamil ? "ஆம், வருகிறோம்" : "Yes, we'll be there",
     no: tamil ? "வர இயலாது" : "Sorry, we can't make it",
-    adultsLabel: tamil ? "பெரியவர்கள்" : "Adults",
-    childrenLabel: tamil ? "குழந்தைகள்" : "Children",
-    phoneLabel: tamil ? "தொலைபேசி (விருப்பம்)" : "Phone (optional)",
-    noteLabel: tamil ? "குறிப்பு (உணவு / பிற)" : "Note (food needs, etc.)",
+    peopleLabel: tamil ? "வருபவர்களின் எண்ணிக்கை" : "Number of people attending",
     submit: tamil ? "RSVP அனுப்பு" : "Send RSVP",
     submitting: tamil ? "அனுப்புகிறது..." : "Sending...",
     thanksYes: tamil

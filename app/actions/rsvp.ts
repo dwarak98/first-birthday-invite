@@ -16,10 +16,7 @@ export async function submitRsvp(
   const localeRaw = String(formData.get("locale") || "");
   const name = String(formData.get("name") || "").trim();
   const attendingRaw = String(formData.get("attending") || "");
-  const phone = String(formData.get("phone") || "").trim();
-  const note = String(formData.get("note") || "").trim();
-  const adults = Number(formData.get("adults") || 0);
-  const children = Number(formData.get("children") || 0);
+  const people = Number(formData.get("people") || 0);
 
   if (!isLocale(localeRaw)) {
     return { error: "invalid" };
@@ -32,21 +29,18 @@ export async function submitRsvp(
   }
 
   const attending = attendingRaw === "yes";
-  if (attending && (adults < 1 || adults > 20 || children < 0 || children > 20)) {
+  if (attending && (people < 1 || people > 20)) {
     return { error: "invalid" };
   }
-  if (!attending && (adults < 0 || children < 0)) {
+  if (!attending && people !== 0) {
     return { error: "invalid" };
   }
 
   await createRsvp({
     locale: localeRaw,
     name,
-    phone,
     attending,
-    adults: attending ? adults : 0,
-    children: attending ? children : 0,
-    note,
+    people: attending ? people : 0,
   });
 
   return { ok: true, attending };

@@ -35,10 +35,13 @@ export default async function AdminPage() {
         </div>
       </div>
 
-      <div className="mt-8 grid gap-4 sm:grid-cols-4">
-        <Stat label="Coming" value={stats.headcount} hint="adults + children" />
-        <Stat label="Adults" value={stats.adults} />
-        <Stat label="Children" value={stats.children} />
+      <div className="mt-8 grid gap-4 sm:grid-cols-3">
+        <Stat label="Coming" value={stats.headcount} hint="people attending" />
+        <Stat
+          label="Parties"
+          value={stats.attendingParties}
+          hint="yes replies"
+        />
         <Stat label="Can't make it" value={stats.declinedParties} hint="replies" />
       </div>
 
@@ -48,17 +51,14 @@ export default async function AdminPage() {
             <tr>
               <th className="px-4 py-3">Name</th>
               <th className="px-4 py-3">Status</th>
-              <th className="px-4 py-3">Adults</th>
-              <th className="px-4 py-3">Children</th>
-              <th className="px-4 py-3">Phone</th>
-              <th className="px-4 py-3">Note</th>
+              <th className="px-4 py-3">People</th>
               <th className="px-4 py-3">Language</th>
             </tr>
           </thead>
           <tbody>
             {rsvps.length === 0 ? (
               <tr>
-                <td colSpan={7} className="px-4 py-10 text-center text-ink/50">
+                <td colSpan={4} className="px-4 py-10 text-center text-ink/50">
                   No RSVPs yet.
                 </td>
               </tr>
@@ -69,10 +69,7 @@ export default async function AdminPage() {
                   <td className="px-4 py-3">
                     {row.attending ? "Attending" : "Not attending"}
                   </td>
-                  <td className="px-4 py-3">{row.adults}</td>
-                  <td className="px-4 py-3">{row.children}</td>
-                  <td className="px-4 py-3">{row.phone || "—"}</td>
-                  <td className="px-4 py-3">{row.note || "—"}</td>
+                  <td className="px-4 py-3">{row.attending ? row.people : "—"}</td>
                   <td className="px-4 py-3 uppercase">{row.locale}</td>
                 </tr>
               ))

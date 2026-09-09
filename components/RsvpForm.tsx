@@ -68,64 +68,23 @@ export function RsvpForm({ locale }: { locale: Locale }) {
       </fieldset>
 
       {attending === "yes" ? (
-        <div className="grid gap-4 sm:grid-cols-2">
-          <label className="block">
-            <span className="mb-1.5 block text-sm font-semibold tracking-wide text-ink/80">
-              {copy.adultsLabel}
-            </span>
-            <input
-              required
-              type="number"
-              name="adults"
-              min={1}
-              max={20}
-              defaultValue={1}
-              className="w-full rounded-2xl border border-gold/30 bg-white px-4 py-3 outline-none ring-maroon/20 focus:ring-2"
-            />
-          </label>
-          <label className="block">
-            <span className="mb-1.5 block text-sm font-semibold tracking-wide text-ink/80">
-              {copy.childrenLabel}
-            </span>
-            <input
-              required
-              type="number"
-              name="children"
-              min={0}
-              max={20}
-              defaultValue={0}
-              className="w-full rounded-2xl border border-gold/30 bg-white px-4 py-3 outline-none ring-maroon/20 focus:ring-2"
-            />
-          </label>
-        </div>
+        <label className="block">
+          <span className="mb-1.5 block text-sm font-semibold tracking-wide text-ink/80">
+            {copy.peopleLabel}
+          </span>
+          <input
+            required
+            type="number"
+            name="people"
+            min={1}
+            max={20}
+            defaultValue={1}
+            className="w-full rounded-2xl border border-gold/30 bg-white px-4 py-3 outline-none ring-maroon/20 focus:ring-2"
+          />
+        </label>
       ) : (
-        <>
-          <input type="hidden" name="adults" value="0" />
-          <input type="hidden" name="children" value="0" />
-        </>
+        <input type="hidden" name="people" value="0" />
       )}
-
-      <label className="block">
-        <span className="mb-1.5 block text-sm font-semibold tracking-wide text-ink/80">
-          {copy.phoneLabel}
-        </span>
-        <input
-          name="phone"
-          type="tel"
-          className="w-full rounded-2xl border border-gold/30 bg-white px-4 py-3 outline-none ring-maroon/20 focus:ring-2"
-        />
-      </label>
-
-      <label className="block">
-        <span className="mb-1.5 block text-sm font-semibold tracking-wide text-ink/80">
-          {copy.noteLabel}
-        </span>
-        <textarea
-          name="note"
-          rows={3}
-          className="w-full rounded-2xl border border-gold/30 bg-white px-4 py-3 outline-none ring-maroon/20 focus:ring-2"
-        />
-      </label>
 
       {state.error ? (
         <p className="text-sm text-maroon">{copy.error}</p>

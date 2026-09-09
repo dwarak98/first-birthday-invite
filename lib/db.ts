@@ -6,11 +6,8 @@ export type Rsvp = {
   id: string;
   locale: string;
   name: string;
-  phone: string | null;
   attending: boolean;
-  adults: number;
-  children: number;
-  note: string | null;
+  people: number;
   createdAt: string;
 };
 
@@ -62,15 +59,16 @@ async function ensureSchema() {
 }
 
 function mapRow(row: Row): Rsvp {
+  const people =
+    row.people == null
+      ? Number(row.adults || 0) + Number(row.children || 0)
+      : Number(row.people);
   return {
     id: String(row.id),
     locale: String(row.locale),
     name: String(row.name),
-    phone: row.phone == null ? null : String(row.phone),
     attending: Number(row.attending) === 1,
-    adults: Number(row.adults),
-    children: Number(row.children),
-    note: row.note == null ? null : String(row.note),
+    people,
     createdAt: String(row.created_at),
   };
 }
@@ -78,11 +76,8 @@ function mapRow(row: Row): Rsvp {
 export async function createRsvp(input: {
   locale: string;
   name: string;
-  phone?: string;
   attending: boolean;
-  adults: number;
-  children: number;
-  note?: string;
+  people: number;
 }) {
   await ensureSchema();
   const id = crypto.randomUUID();
@@ -94,11 +89,11 @@ export async function createRsvp(input: {
       id,
       input.locale,
       input.name,
-      input.phone || null,
+      null,
       input.attending ? 1 : 0,
-      input.adults,
-      input.children,
-      input.note || null,
+      input.people,
+      0,
+      null,
       createdAt,
     ],
   });
@@ -120,11 +115,6 @@ export function summarize(rsvps: Rsvp[]) {
     responses: rsvps.length,
     attendingParties: attending.length,
     declinedParties: declined.length,
-    adults: attending.reduce((sum, row) => sum + row.adults, 0),
-    children: attending.reduce((sum, row) => sum + row.children, 0),
-    headcount: attending.reduce(
-      (sum, row) => sum + row.adults + row.children,
-      0,
-    ),
+    headcount: attending.reduce((sum, row) => sum + row.people, 0),
   };
 }
