@@ -39,6 +39,9 @@ export function FirstBirthdayMark({
         <clipPath id="cake-base-clip">
           <rect x="0" y="0" width="140" height="116.6" />
         </clipPath>
+        <clipPath id="cake-plate-clip">
+          <circle cx="70" cy="70" r="58.3" />
+        </clipPath>
       </defs>
 
       <circle cx="70" cy="70" r="66" stroke={gold} strokeWidth="0.7" opacity="0.35" />
@@ -100,7 +103,9 @@ export function FirstBirthdayMark({
         <circle cx="80" cy="69" r="1.2" fill={cream} />
       </g>
 
-      <rect x="56" y="116.2" width="28" height="5.2" rx="2.6" fill={gold} />
+      <g clipPath="url(#cake-plate-clip)">
+        <rect x="12" y="116.2" width="116" height="5.2" rx="2.6" fill={gold} />
+      </g>
 
       <path
         fill={gold}
