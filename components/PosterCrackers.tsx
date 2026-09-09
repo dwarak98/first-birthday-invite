@@ -130,6 +130,7 @@ export function PosterCrackers({
     }, 1200);
   }
 
+  // One rocket from the bottom of the poster, then a burst at the finger.
   function launchAt(x: number, y: number) {
     const poster = host ?? rootRef.current?.querySelector("[data-invite-poster]");
     if (!(poster instanceof HTMLElement) || prefersReducedMotion()) return;
