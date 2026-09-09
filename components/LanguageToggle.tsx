@@ -5,27 +5,27 @@ export function LanguageToggle({ locale }: { locale: Locale }) {
   const copy = copyFor(locale);
 
   return (
-    <nav className="flex justify-center" aria-label="Language">
-      <div className="inline-flex rounded-full border border-gold/40 bg-white/80 p-1 shadow-sm">
+    <nav className="shrink-0" aria-label="Language">
+      <div className="inline-flex rounded-lg bg-accent-soft p-0.5">
         <a
           href="/"
-          className={`rounded-full px-4 py-1.5 text-sm font-semibold transition ${
+          className={`rounded-md px-3 py-1.5 text-xs font-medium transition ${
             locale === "en"
-              ? "bg-maroon text-white"
-              : "text-ink/70 hover:text-ink"
+              ? "bg-surface text-ink shadow-sm"
+              : "text-muted hover:text-ink"
           }`}
         >
-          English
+          EN
         </a>
         <a
           href="/?lang=ta"
-          className={`rounded-full px-4 py-1.5 text-sm font-semibold transition ${
+          className={`rounded-md px-3 py-1.5 text-xs font-medium transition ${
             locale === "ta"
-              ? "bg-maroon text-white"
-              : "text-ink/70 hover:text-ink"
+              ? "bg-surface text-ink shadow-sm"
+              : "text-muted hover:text-ink"
           }`}
         >
-          தமிழ்
+          TA
         </a>
       </div>
       <span className="sr-only">{copy.switchHint}</span>
