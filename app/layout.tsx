@@ -23,7 +23,7 @@ const tamil = Noto_Sans_Tamil({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),
-  title: "You're invited",
+  title: "Come celebrate",
   description: "Join us for a first birthday celebration.",
 };
 

@@ -42,7 +42,11 @@ export function Invitation({ locale }: { locale: Locale }) {
         <Corners />
 
         <div className="relative flex items-center justify-between">
-          <p className="text-[10px] font-medium tracking-[0.32em] text-rose uppercase">
+          <p
+            className={`text-[10px] font-medium tracking-[0.28em] text-rose ${
+              tamil ? "" : "uppercase"
+            }`}
+          >
             {copy.scriptEyebrow}
           </p>
           <LanguageToggle locale={locale} />

@@ -8,7 +8,7 @@ export function copyFor(locale: Locale) {
     locale,
     htmlLang: tamil ? "ta" : "en",
     name,
-    scriptEyebrow: tamil ? "அன்புடன் அழைக்கிறோம்" : "You're invited",
+    scriptEyebrow: tamil ? "கொண்டாட வாருங்கள்" : "Come celebrate",
     headline: tamil
       ? `${name} சிறுமியின் ${event.ageTa}`
       : `Celebrate ${name}'s ${event.ageEn}`,
