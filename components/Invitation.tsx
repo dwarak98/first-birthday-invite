@@ -17,14 +17,12 @@ function weekdayAndDate(value: string) {
   return { weekday, date };
 }
 
-function Corners() {
+function Frame() {
   return (
-    <>
-      <span className="pointer-events-none absolute top-3 left-3 h-4 w-4 border-t border-l border-gold/70" />
-      <span className="pointer-events-none absolute top-3 right-3 h-4 w-4 border-t border-r border-gold/70" />
-      <span className="pointer-events-none absolute bottom-3 left-3 h-4 w-4 border-b border-l border-gold/70" />
-      <span className="pointer-events-none absolute right-3 bottom-3 h-4 w-4 border-b border-r border-gold/70" />
-    </>
+    <span
+      aria-hidden
+      className="pointer-events-none absolute inset-[11px] rounded-[1.35rem] border border-gold/35"
+    />
   );
 }
 
@@ -38,7 +36,7 @@ export function Invitation({ locale }: { locale: Locale }) {
   return (
     <div className={`invite-stage px-3 py-3 sm:px-4 sm:py-10 ${tamil ? "font-tamil" : ""}`}>
       <article className="poster relative mx-auto w-full max-w-[440px] overflow-hidden rounded-[1.75rem]">
-        <Corners />
+        <Frame />
 
         <div className="relative flex min-h-[calc(100svh-1.5rem)] flex-col px-5 pt-5 pb-5 sm:min-h-0 sm:px-8 sm:pt-7 sm:pb-6">
           <div className="flex items-center justify-between">
