@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #fbf6ee;
+  --ink: #3d2a2a;
+  --gold: #b8893e;
+  --maroon: #7a2e3a;
+  --peach: #f6e0d0;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-gold: var(--gold);
+  --color-maroon: var(--maroon);
+  --color-peach: var(--peach);
+  --font-sans: var(--font-body);
+}
+
+html,
+body {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+body {
+  min-height: 100%;
+  background-image:
+    radial-gradient(circle at top, rgba(243, 213, 192, 0.55), transparent 42%),
+    linear-gradient(#fbf6ee, #f4eadc);
+  font-family: var(--font-sans), var(--font-tamil), sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-display), var(--font-tamil), serif;
+}
+
+.font-script {
+  font-family: var(--font-script), cursive;
+}
+
+.font-tamil {
+  font-family: var(--font-tamil), sans-serif;
+}
+
+.invite-card {
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(251, 246, 238, 0.96));
+}
