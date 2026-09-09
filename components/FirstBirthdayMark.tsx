@@ -64,8 +64,8 @@ export function FirstBirthdayMark({
       <g className={animate ? "flame" : undefined}>
         <ellipse
           className={animate ? "flame-halo" : undefined}
-          cx="73"
-          cy="32"
+          cx="71"
+          cy="30"
           rx="8"
           ry="10"
           fill={`url(#${glowId})`}
@@ -73,22 +73,23 @@ export function FirstBirthdayMark({
         <path
           className={animate ? "flame-outer" : undefined}
           fill="#e86a3a"
-          d="M73 24.5c-3.2 4.2-3.4 8 0 11.2 3.4-3.2 3.2-7 0-11.2Z"
+          d="M71 22.5c-3.2 4.2-3.4 8 0 11.2 3.4-3.2 3.2-7 0-11.2Z"
         />
         <path
           className={animate ? "flame-inner" : undefined}
           fill="#ffd27a"
-          d="M73 28.2c-1.5 2-1.6 3.8 0 5.4 1.6-1.6 1.5-3.4 0-5.4Z"
+          d="M71 26.2c-1.5 2-1.6 3.8 0 5.4 1.6-1.6 1.5-3.4 0-5.4Z"
         />
       </g>
 
-      <rect x="72.2" y="35.5" width="1.6" height="4.2" rx="0.6" fill="#5c4033" />
+      <rect x="70.2" y="33.5" width="1.6" height="5" rx="0.6" fill="#5c4033" />
       <path
         fill={cream}
         stroke={gold}
-        strokeWidth="1.5"
+        strokeWidth="1.7"
         strokeLinejoin="round"
-        d="M64 47.5 73 36.8h6.2V62h7.2v4.6H56.2V62h7.4V51.2L64 52.2Z"
+        strokeLinecap="round"
+        d="M54 50.5 66 36h10v29H66V47Z"
       />
 
       <rect
