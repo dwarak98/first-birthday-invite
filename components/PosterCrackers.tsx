@@ -14,6 +14,7 @@ type Bit = {
   length: number;
   delay: number;
   duration: number;
+  path?: string;
 };
 
 const COLORS = ["#c4a06a", "#9c3d45", "#fff8f1", "#8b3a42", "#f6e4d8", "#c4a06a"];
@@ -130,35 +131,42 @@ export function PosterCrackers({
     }, 1200);
   }
 
-  // One rocket from the bottom of the poster, then a burst at the finger.
+  // Launch from a random spot along the bottom, then curve to the finger.
   function launchAt(x: number, y: number) {
     const poster = host ?? rootRef.current?.querySelector("[data-invite-poster]");
     if (!(poster instanceof HTMLElement) || prefersReducedMotion()) return;
 
     const w = poster.clientWidth;
     const h = poster.clientHeight;
-    const y1 = h - 22;
+    const x1 = 28 + Math.random() * Math.max(w - 56, 24);
+    const y1 = h - 20;
     const radius = Math.min(w * 0.34, h * 0.26, x - 10, w - x - 10, y - 10, h - y - 10, 112);
     const burstRadius = Math.max(radius, 72);
-    const rise = y1 - y;
+    const travel = Math.hypot(x - x1, y - y1);
 
-    if (rise < 40) {
+    if (travel < 36) {
       spawnBurst(x, y, burstRadius);
       return;
     }
 
-    const flight = 920 + rise * 1.35;
+    const lift = Math.abs(y1 - y);
+    const bend = (Math.random() < 0.5 ? -1 : 1) * (0.2 + Math.random() * 0.18) * Math.max(lift, 80);
+    const cx = Math.min(w - 20, Math.max(20, (x1 + x) / 2 + bend));
+    const cy = Math.min(h - 24, Math.max(24, Math.min(y1, y) + lift * 0.4));
+    const path = `M ${x1.toFixed(1)} ${y1.toFixed(1)} Q ${cx.toFixed(1)} ${cy.toFixed(1)} ${x.toFixed(1)} ${y.toFixed(1)}`;
+    const flight = 880 + travel * 1.15;
     const rocket: Bit = {
       id: ++nextId.current,
       kind: "rocket",
-      x,
+      x: x1,
       y: y1,
       color: "#c4a06a",
       rot: 0,
-      dist: y - y1,
-      length: 22,
+      dist: travel,
+      length: 16,
       delay: 0,
       duration: flight,
+      path,
     };
 
     setBits((current) => [...current, rocket].slice(-180));
@@ -236,10 +244,11 @@ export function PosterCrackers({
                         : "invite-cracker-streak"
                 }
                 style={{
-                  left: bit.x,
-                  top: bit.y,
+                  left: bit.kind === "rocket" ? 0 : bit.x,
+                  top: bit.kind === "rocket" ? 0 : bit.y,
                   background: bit.color,
-                  width: bit.kind === "rocket" ? 3 : bit.kind === "core" ? 16 : bit.length,
+                  width: bit.kind === "rocket" ? 16 : bit.kind === "core" ? 16 : bit.length,
+                  offsetPath: bit.path ? `path("${bit.path}")` : undefined,
                   ["--rot" as string]: `${bit.rot}deg`,
                   ["--dist" as string]: `${bit.dist}px`,
                   ["--delay" as string]: `${bit.delay}ms`,

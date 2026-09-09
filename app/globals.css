@@ -115,12 +115,12 @@ body {
 }
 
 .invite-rocket {
-  width: 3px;
-  height: 22px;
-  margin-left: -1.5px;
-  margin-top: -22px;
+  width: 16px;
+  height: 3px;
+  margin: 0;
   border-radius: 2px;
   box-shadow: 0 0 8px color-mix(in srgb, #c4a06a 70%, transparent);
+  offset-rotate: auto;
   animation-name: invite-rocket;
   animation-timing-function: cubic-bezier(0.12, 0.62, 0.2, 1);
 }
@@ -247,15 +247,15 @@ body {
 @keyframes invite-rocket {
   0% {
     opacity: 1;
-    transform: translateY(0);
+    offset-distance: 0%;
   }
-  88% {
+  90% {
     opacity: 1;
-    transform: translateY(var(--dist));
+    offset-distance: 100%;
   }
   100% {
     opacity: 0;
-    transform: translateY(var(--dist));
+    offset-distance: 100%;
   }
 }
 
