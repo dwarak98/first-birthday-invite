@@ -82,40 +82,41 @@ export function Invitation({ locale }: { locale: Locale }) {
 
         <div className="mx-auto mt-6 h-px w-16 bg-gold/50" />
 
-        <section className="mt-5 text-center">
-          <p className="text-[10px] font-medium tracking-[0.28em] text-muted uppercase">
-            {copy.whenLabel}
-          </p>
-          {when.weekday ? (
-            <p className="mt-2 text-[11px] font-medium tracking-[0.22em] text-rose uppercase">
-              {when.weekday}
+        <section className="mt-5 grid grid-cols-2 divide-x divide-gold/25 overflow-hidden rounded-2xl bg-blush/55">
+          <div className="px-3 py-4 text-center">
+            <p className="text-[10px] font-medium tracking-[0.22em] text-muted uppercase">
+              {copy.whenLabel}
             </p>
-          ) : null}
-          <p className={`mt-1 text-xl text-ink ${tamil ? "font-semibold" : "font-display"}`}>
-            {when.date}
-          </p>
-          <p className="mt-1 text-sm tracking-wide text-muted">{copy.time}</p>
-        </section>
-
-        <section className="mt-6 rounded-2xl bg-blush/55 px-4 py-4 text-center">
-          <p className="text-[10px] font-medium tracking-[0.28em] text-muted uppercase">
-            {copy.whereLabel}
-          </p>
-          <p className={`mt-1.5 text-lg text-ink ${tamil ? "font-semibold" : "font-display"}`}>
-            {copy.venueName}
-          </p>
-          <p className="mx-auto mt-1 max-w-[20rem] text-[12px] leading-5 text-muted">
-            {copy.venueAddress}
-          </p>
-          <a
-            href={event.mapsUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-3 inline-flex items-center gap-2 rounded-full bg-rose px-4 py-2 text-xs font-medium text-white transition hover:bg-maroon"
-          >
-            {copy.mapsCta}
-            <span aria-hidden>↗</span>
-          </a>
+            {when.weekday ? (
+              <p className="mt-2 text-[10px] font-medium tracking-[0.18em] text-rose uppercase">
+                {when.weekday}
+              </p>
+            ) : null}
+            <p className={`mt-1 text-[15px] leading-snug text-ink ${tamil ? "font-semibold" : "font-display"}`}>
+              {when.date}
+            </p>
+            <p className="mt-1 text-[12px] tracking-wide text-muted">{copy.time}</p>
+          </div>
+          <div className="px-3 py-4 text-center">
+            <p className="text-[10px] font-medium tracking-[0.22em] text-muted uppercase">
+              {copy.whereLabel}
+            </p>
+            <p className={`mt-2 text-[15px] leading-snug text-ink ${tamil ? "font-semibold" : "font-display"}`}>
+              {copy.venueName}
+            </p>
+            <p className="mt-1 text-[11px] leading-4 text-muted">
+              {copy.venueAddress}
+            </p>
+            <a
+              href={event.mapsUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-2 inline-flex items-center gap-1 rounded-full bg-rose px-3 py-1.5 text-[11px] font-medium text-white transition hover:bg-maroon"
+            >
+              {copy.mapsCta}
+              <span aria-hidden>↗</span>
+            </a>
+          </div>
         </section>
 
         <p className="mt-6 text-center text-[13px] text-muted">
