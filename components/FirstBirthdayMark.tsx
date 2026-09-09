@@ -36,8 +36,8 @@ export function FirstBirthdayMark({
           <stop offset="70%" stopColor="#f0a04a" stopOpacity="0.2" />
           <stop offset="100%" stopColor="#f0a04a" stopOpacity="0" />
         </radialGradient>
-        <clipPath id="cake-ring-clip">
-          <circle cx="70" cy="70" r="58.3" />
+        <clipPath id="cake-base-clip">
+          <rect x="0" y="0" width="140" height="116.6" />
         </clipPath>
       </defs>
 
@@ -60,43 +60,47 @@ export function FirstBirthdayMark({
         strokeWidth="1.4"
       />
 
-      <g clipPath="url(#cake-ring-clip)">
+      <g clipPath="url(#cake-base-clip)">
         <path
           fill={cream}
           stroke={rose}
           strokeWidth="1.45"
-          d="M32 130V98Q32 90 42 90h56q10 0 10 8v32Z"
+          d="M36 130V100Q36 86 50 86h40q14 0 14 14v30Z"
+        />
+        <path
+          fill={cream}
+          d="M52 90V74Q52 64 62 64h16q10 0 10 10v16Z"
+        />
+        <path
+          fill="none"
+          stroke={rose}
+          strokeWidth="1.45"
+          strokeLinecap="round"
+          d="M52 82V74Q52 64 62 64h16q10 0 10 10v8"
         />
         <path
           fill={icing}
           stroke={rose}
           strokeWidth="1.45"
-          d="M32 84h76v12c-3.2 5.4-9.4 5.4-12.6 0-3.2 5.4-9.4 5.4-12.7 0-3.2 5.4-9.4 5.4-12.6 0-3.3 5.4-9.5 5.4-12.7 0-3.2 5.4-9.4 5.4-12.6 0-3.3 5.4-9.5 5.4-12.8 0V84Z"
+          d="M50 81h40Q104 81 104 92v4c-2.8 5.2-8.4 5.2-11.3 0-2.8 5.2-8.4 5.2-11.3 0-2.8 5.2-8.4 5.2-11.4 0-2.8 5.2-8.4 5.2-11.3 0-2.8 5.2-8.4 5.2-11.3 0-2.8 5.2-8.5 5.2-11.4 0V92Q36 81 50 81Z"
         />
-        <circle cx="42" cy="90" r="1.35" fill={cream} />
-        <circle cx="55" cy="88.5" r="1.2" fill={cream} />
+        <circle cx="46" cy="90" r="1.35" fill={cream} />
+        <circle cx="58" cy="88.5" r="1.2" fill={cream} />
         <circle cx="70" cy="91" r="1.35" fill={cream} />
-        <circle cx="84" cy="88.8" r="1.2" fill={cream} />
-        <circle cx="97" cy="90.5" r="1.3" fill={cream} />
-
-        <path
-          fill={cream}
-          stroke={rose}
-          strokeWidth="1.45"
-          d="M49 78V74Q49 70 56 70h28q7 0 7 4v8q0 6-7 6H56q-7 0-7-6Z"
-        />
+        <circle cx="82" cy="88.8" r="1.2" fill={cream} />
+        <circle cx="94" cy="90.5" r="1.3" fill={cream} />
         <path
           fill={icing}
           stroke={rose}
           strokeWidth="1.45"
-          d="M49 62h42v12c-2.6 4.8-7.8 4.8-10.5 0-2.6 4.8-7.8 4.8-10.5 0-2.6 4.8-7.8 4.8-10.5 0-2.6 4.8-7.8 4.8-10.5 0V62Z"
+          d="M62 62h16Q88 62 88 70v4c-2.2 4.6-6.8 4.6-9 0-2.2 4.6-6.8 4.6-9 0-2.2 4.6-6.8 4.6-9 0-2.2 4.6-6.8 4.6-9 0V70Q52 62 62 62Z"
         />
-        <circle cx="58" cy="68.5" r="1.2" fill={cream} />
+        <circle cx="60" cy="68.5" r="1.2" fill={cream} />
         <circle cx="70" cy="67" r="1.35" fill={cream} />
-        <circle cx="82" cy="69" r="1.2" fill={cream} />
-
-        <path fill={gold} d="M10 117h120v30H10Z" />
+        <circle cx="80" cy="69" r="1.2" fill={cream} />
       </g>
+
+      <rect x="56" y="116.2" width="28" height="5.2" rx="2.6" fill={gold} />
 
       <path
         fill={gold}
