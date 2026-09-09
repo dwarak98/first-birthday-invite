@@ -18,6 +18,7 @@ type Bit = {
 
 const COLORS = ["#c4a06a", "#9c3d45", "#fff8f1", "#8b3a42", "#f6e4d8", "#c4a06a"];
 const LAUNCH_EVERY_MS = 900;
+const ROCKETS = 10;
 
 function isControl(target: EventTarget | null) {
   return target instanceof Element && Boolean(target.closest("a, button, input, textarea, select, label"));
@@ -25,6 +26,15 @@ function isControl(target: EventTarget | null) {
 
 function prefersReducedMotion() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function posterPoint(poster: HTMLElement, clientX: number, clientY: number) {
+  const box = poster.getBoundingClientRect();
+  const pad = 20;
+  return {
+    x: Math.min(box.width - pad, Math.max(pad, clientX - box.left)),
+    y: Math.min(box.height - pad, Math.max(pad, clientY - box.top)),
+  };
 }
 
 export function PosterCrackers({
@@ -35,7 +45,7 @@ export function PosterCrackers({
   children: ReactNode;
 }) {
   const rootRef = useRef<HTMLDivElement>(null);
-  const pressId = useRef<number | null>(null);
+  const pressRef = useRef<{ id: number; x: number; y: number } | null>(null);
   const loopRef = useRef(0);
   const nextId = useRef(0);
   const [host, setHost] = useState<HTMLElement | null>(null);
@@ -49,7 +59,7 @@ export function PosterCrackers({
   function stopShow() {
     window.clearInterval(loopRef.current);
     loopRef.current = 0;
-    pressId.current = null;
+    pressRef.current = null;
   }
 
   function spawnBurst(x: number, y: number, radius: number) {
@@ -113,7 +123,7 @@ export function PosterCrackers({
       });
     }
 
-    setBits((current) => [...current, ...next].slice(-160));
+    setBits((current) => [...current, ...next].slice(-180));
     const last = next[next.length - 1].id;
     const first = next[0].id;
     window.setTimeout(() => {
@@ -121,70 +131,97 @@ export function PosterCrackers({
     }, 1200);
   }
 
-  function launchRockets(count: number) {
+  function launchAt(x: number, y: number) {
     const poster = host ?? rootRef.current?.querySelector("[data-invite-poster]");
     if (!(poster instanceof HTMLElement) || prefersReducedMotion()) return;
 
     const w = poster.clientWidth;
     const h = poster.clientHeight;
-    const pad = 78;
+    const reach = Math.min(w, h) * 0.42;
     const next: Bit[] = [];
+    let flight = 980;
 
-    for (let i = 0; i < count; i += 1) {
-      const x = pad + Math.random() * Math.max(w - pad * 2, 48);
-      const y1 = h - 22;
-      const y2 = 96 + Math.random() * 36;
-      const flight = 1280 + Math.random() * 280;
-      const radius = Math.min(w * 0.36, h * 0.24, x - 12, w - x - 12, 108);
-      const rocket: Bit = {
+    for (let i = 0; i < ROCKETS; i += 1) {
+      const angle = (i / ROCKETS) * Math.PI * 2;
+      let ox = x + Math.cos(angle) * reach;
+      let oy = y + Math.sin(angle) * reach;
+      ox = Math.min(w - 16, Math.max(16, ox));
+      oy = Math.min(h - 16, Math.max(16, oy));
+      const dx = x - ox;
+      const dy = y - oy;
+      const dist = Math.hypot(dx, dy);
+      if (dist < 28) continue;
+      flight = Math.max(flight, 880 + dist * 1.1);
+      next.push({
         id: ++nextId.current,
         kind: "rocket",
-        x,
-        y: y1,
-        color: "#c4a06a",
-        rot: 0,
-        dist: y2 - y1,
-        length: 20,
-        delay: i * 120,
-        duration: flight,
-      };
-      next.push(rocket);
-      window.setTimeout(() => spawnBurst(x, y2, Math.max(radius, 64)), rocket.delay + flight);
+        x: ox,
+        y: oy,
+        color: i % 2 === 0 ? "#c4a06a" : "#9c3d45",
+        rot: (Math.atan2(dy, dx) * 180) / Math.PI,
+        dist,
+        length: 18,
+        delay: i * 18,
+        duration: 880 + dist * 1.1,
+      });
     }
 
-    setBits((current) => [...current, ...next].slice(-160));
-    const first = next[0]?.id;
-    const last = next[next.length - 1]?.id;
-    if (first === undefined || last === undefined) return;
+    if (next.length === 0) return;
+
+    setBits((current) => [...current, ...next].slice(-180));
+    const first = next[0].id;
+    const last = next[next.length - 1].id;
+    const radius = Math.min(w * 0.34, h * 0.26, x - 10, w - x - 10, y - 10, h - y - 10, 112);
+
+    window.setTimeout(() => spawnBurst(x, y, Math.max(radius, 72)), flight);
     window.setTimeout(() => {
       setBits((current) => current.filter((item) => item.id < first || item.id > last));
-    }, 1800);
+    }, flight + 40);
   }
 
-  function startShow(pointer: number) {
+  function launchFromPress() {
+    const press = pressRef.current;
+    if (!press) return;
+    launchAt(press.x, press.y);
+  }
+
+  function startShow(pointer: number, x: number, y: number) {
     if (prefersReducedMotion()) return;
     stopShow();
-    pressId.current = pointer;
-    launchRockets(1);
+    pressRef.current = { id: pointer, x, y };
+    launchFromPress();
     loopRef.current = window.setInterval(() => {
-      if (pressId.current === null) return;
-      launchRockets(1);
+      if (pressRef.current === null) return;
+      launchFromPress();
     }, LAUNCH_EVERY_MS);
   }
 
   function onPointerDown(event: PointerEvent<HTMLDivElement>) {
     if (event.pointerType === "mouse" && event.button !== 0) return;
     if (isControl(event.target)) return;
+    const poster = host ?? rootRef.current?.querySelector("[data-invite-poster]");
+    if (!(poster instanceof HTMLElement)) return;
     try {
       event.currentTarget.setPointerCapture(event.pointerId);
     } catch {
       /* capture is optional; pointerup still ends the show */
     }
-    startShow(event.pointerId);
+    const point = posterPoint(poster, event.clientX, event.clientY);
+    startShow(event.pointerId, point.x, point.y);
+  }
+
+  function onPointerMove(event: PointerEvent<HTMLDivElement>) {
+    const press = pressRef.current;
+    if (!press || press.id !== event.pointerId) return;
+    const poster = host ?? rootRef.current?.querySelector("[data-invite-poster]");
+    if (!(poster instanceof HTMLElement)) return;
+    const point = posterPoint(poster, event.clientX, event.clientY);
+    press.x = point.x;
+    press.y = point.y;
   }
 
   function onPointerUp(event: PointerEvent<HTMLDivElement>) {
-    if (pressId.current !== event.pointerId) return;
+    if (pressRef.current?.id !== event.pointerId) return;
     stopShow();
   }
 
@@ -213,7 +250,7 @@ export function PosterCrackers({
                   left: bit.x,
                   top: bit.y,
                   background: bit.color,
-                  width: bit.kind === "rocket" ? 3 : bit.kind === "core" ? 16 : bit.length,
+                  width: bit.kind === "core" ? 16 : bit.length,
                   ["--rot" as string]: `${bit.rot}deg`,
                   ["--dist" as string]: `${bit.dist}px`,
                   ["--delay" as string]: `${bit.delay}ms`,
@@ -231,6 +268,7 @@ export function PosterCrackers({
       ref={rootRef}
       className={className}
       onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
       onPointerCancel={onPointerCancel}
     >
