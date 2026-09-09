@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { FirstBirthdayMark } from "@/components/FirstBirthdayMark";
 import { copyFor } from "@/lib/copy";
 
 export const alt = "First birthday invitation";
@@ -63,33 +64,8 @@ export default async function OgImage() {
           >
             {rest.join(" ")}
           </div>
-          <div
-            style={{
-              marginTop: 20,
-              display: "flex",
-              alignItems: "center",
-              gap: 12,
-              background: "#9c3d45",
-              color: "#fff8f1",
-              borderRadius: 999,
-              padding: "10px 22px",
-            }}
-          >
-            <div style={{ fontSize: 36, fontWeight: 600, lineHeight: 1 }}>1</div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                fontSize: 14,
-                fontWeight: 700,
-                letterSpacing: "0.18em",
-                textTransform: "uppercase",
-                lineHeight: 1.15,
-              }}
-            >
-              <div>First</div>
-              <div>Birthday</div>
-            </div>
+          <div style={{ marginTop: 22, display: "flex" }}>
+            <FirstBirthdayMark title="1st Birthday" size={118} />
           </div>
           <div
             style={{

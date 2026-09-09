@@ -1,3 +1,4 @@
+import { FirstBirthdayMark } from "@/components/FirstBirthdayMark";
 import { LanguageToggle } from "@/components/LanguageToggle";
 import { RsvpForm } from "@/components/RsvpForm";
 import { copyFor } from "@/lib/copy";
@@ -64,38 +65,11 @@ export function Invitation({ locale }: { locale: Locale }) {
               {rest}
             </p>
           ) : null}
-          <div
-            className="mt-5 inline-flex items-center gap-3 rounded-full bg-rose px-5 py-2.5 text-white"
-            aria-label={age}
-          >
-            <span
-              className={`leading-none ${
-                tamil ? "text-3xl font-bold" : "font-display text-4xl font-semibold"
-              }`}
-            >
-              1
-            </span>
-            <span
-              className={`text-left font-bold leading-[1.15] ${
-                tamil ? "text-xs tracking-wide" : "text-[11px] tracking-[0.18em] uppercase"
-              }`}
-            >
-              {tamil ? (
-                age
-              ) : (
-                <>
-                  First
-                  <br />
-                  Birthday
-                </>
-              )}
-            </span>
-          </div>
         </header>
 
-        <p className="mx-auto mt-5 max-w-[22rem] text-center text-[13px] leading-6 text-muted">
-          {copy.intro}
-        </p>
+        <div className="mt-6 flex justify-center">
+          <FirstBirthdayMark title={age} />
+        </div>
 
         <div className="mx-auto mt-6 h-px w-16 bg-gold/50" />
 
