@@ -4,6 +4,7 @@ type FirstBirthdayMarkProps = {
   gold?: string;
   rose?: string;
   cream?: string;
+  animate?: boolean;
 };
 
 export function FirstBirthdayMark({
@@ -12,7 +13,10 @@ export function FirstBirthdayMark({
   gold = "#c4a06a",
   rose = "#9c3d45",
   cream = "#fff8f1",
+  animate = true,
 }: FirstBirthdayMarkProps) {
+  const glowId = "first-birthday-flame-glow";
+
   return (
     <svg
       width={size}
@@ -22,22 +26,58 @@ export function FirstBirthdayMark({
       role="img"
       aria-label={title}
     >
+      <defs>
+        <radialGradient id={glowId} cx="50%" cy="58%" r="50%">
+          <stop offset="0%" stopColor="#ffd27a" stopOpacity="0.9" />
+          <stop offset="55%" stopColor="#f0a04a" stopOpacity="0.35" />
+          <stop offset="100%" stopColor="#f0a04a" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+
       <circle cx="70" cy="70" r="66" stroke={gold} strokeWidth="0.7" opacity="0.35" />
-      <circle cx="70" cy="70" r="59" stroke={gold} strokeWidth="1.4" />
+      <circle
+        className={animate ? "candle-ring-light" : undefined}
+        cx="70"
+        cy="70"
+        r="61"
+        stroke="#e8c98a"
+        strokeWidth="5"
+        opacity={animate ? 0.2 : 0}
+      />
+      <circle
+        className={animate ? "candle-ring" : undefined}
+        cx="70"
+        cy="70"
+        r="59"
+        stroke={gold}
+        strokeWidth="1.4"
+      />
       <circle cx="70" cy="70" r="53" stroke={rose} strokeWidth="0.45" opacity="0.25" />
 
       <path fill={gold} d="M108 42 110.4 46.6 108 51.2 105.6 46.6Z" />
       <path fill={gold} d="M32 50 34.1 54.1 32 58.2 29.9 54.1Z" />
       <path fill={rose} d="M112 78 113.8 81.4 112 84.8 110.2 81.4Z" />
 
-      <path
-        fill={rose}
-        d="M70 28c-4.8 6.4-5.2 12.2 0 17.2 5.2-5 4.8-10.8 0-17.2Z"
-      />
-      <path
-        fill={gold}
-        d="M70 34.5c-2.2 3-2.4 5.6 0 8 2.4-2.4 2.2-5 0-8Z"
-      />
+      <g className={animate ? "flame" : undefined}>
+        <ellipse
+          className={animate ? "flame-halo" : undefined}
+          cx="70"
+          cy="38"
+          rx="15"
+          ry="19"
+          fill={`url(#${glowId})`}
+        />
+        <path
+          className={animate ? "flame-outer" : undefined}
+          fill="#e86a3a"
+          d="M70 27c-5.4 6.8-5.8 13.2 0 18.6 5.8-5.4 5.4-11.8 0-18.6Z"
+        />
+        <path
+          className={animate ? "flame-inner" : undefined}
+          fill="#ffd27a"
+          d="M70 33.2c-2.6 3.4-2.8 6.4 0 9.2 2.8-2.8 2.6-5.8 0-9.2Z"
+        />
+      </g>
 
       <rect x="68.2" y="44.5" width="3.6" height="23" rx="1.2" fill={gold} />
       <rect x="68.2" y="51" width="3.6" height="2.2" fill={rose} opacity="0.55" />

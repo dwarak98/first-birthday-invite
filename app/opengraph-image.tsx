@@ -46,7 +46,7 @@ export default async function OgImage() {
             {copy.scriptEyebrow}
           </div>
           <div style={{ marginTop: 18, display: "flex" }}>
-            <FirstBirthdayMark title="1st Birthday" size={96} />
+            <FirstBirthdayMark title="1st Birthday" size={96} animate={false} />
           </div>
           <div
             style={{
