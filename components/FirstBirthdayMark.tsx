@@ -1,6 +1,7 @@
 type FirstBirthdayMarkProps = {
   title: string;
   size?: number;
+  className?: string;
   gold?: string;
   rose?: string;
   cream?: string;
@@ -10,6 +11,7 @@ type FirstBirthdayMarkProps = {
 export function FirstBirthdayMark({
   title,
   size = 151,
+  className,
   gold = "#c4a06a",
   rose = "#9c3d45",
   cream = "#fff8f1",
@@ -19,8 +21,9 @@ export function FirstBirthdayMark({
 
   return (
     <svg
-      width={size}
-      height={size}
+      width={className ? undefined : size}
+      height={className ? undefined : size}
+      className={className}
       viewBox="0 0 140 140"
       fill="none"
       role="img"

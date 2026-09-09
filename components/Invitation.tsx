@@ -53,11 +53,14 @@ export function Invitation({ locale }: { locale: Locale }) {
             <LanguageToggle locale={locale} />
           </div>
 
-          <div className="mt-3 flex justify-center">
-            <FirstBirthdayMark title={age} size={151} />
+          <div className="mt-2 flex min-h-[13rem] flex-1 items-center justify-center sm:min-h-[14rem] sm:flex-none">
+            <FirstBirthdayMark
+              title={age}
+              className="h-full w-auto max-h-[18.5rem] max-w-[min(100%,18.5rem)]"
+            />
           </div>
 
-          <header className="mt-3 text-center">
+          <header className="mt-2 text-center">
             <h1
               className={`leading-[0.95] text-ink ${
                 tamil
@@ -89,7 +92,7 @@ export function Invitation({ locale }: { locale: Locale }) {
             </p>
           </header>
 
-          <section className="mt-4 grid grid-cols-2 divide-x divide-gold/25 overflow-hidden rounded-2xl bg-blush/55">
+          <section className="mt-3 grid grid-cols-2 divide-x divide-gold/25 overflow-hidden rounded-2xl bg-blush/55">
             <div className="px-3 py-3 text-center">
               <p className="text-[10px] font-medium tracking-[0.22em] text-muted uppercase">
                 {copy.whenLabel}
@@ -130,13 +133,13 @@ export function Invitation({ locale }: { locale: Locale }) {
             </div>
           </section>
 
-          <p className="mt-auto pt-4 text-center text-[13px] text-muted">
+          <p className="mt-3 text-center text-[13px] text-muted">
             {copy.fromLabel},{" "}
             <span className={`${tamil ? "font-semibold" : "font-display text-base"} text-ink`}>
               {copy.hosts}
             </span>
           </p>
-          <div className="mx-auto mt-4 h-px w-full bg-gold/35" />
+          <div className="mx-auto mt-3 h-px w-full bg-gold/35" />
         </div>
 
         <section id="rsvp" className="px-5 pt-8 pb-7 sm:px-8 sm:pb-8">
