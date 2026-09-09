@@ -74,7 +74,7 @@ export function FirstBirthdayMark({
       <path
         fill={rose}
         opacity="0.28"
-        d="M54 66.5c2.2 4 6.6 4 8.8 0 2.2 4 6.6 4 8.8 0 2.2 4 6.6 4 8.8 0"
+        d="M56.8 66.5c2.2 4 6.6 4 8.8 0 2.2 4 6.6 4 8.8 0 2.2 4 6.6 4 8.8 0"
       />
       <rect
         x="36"
@@ -90,7 +90,7 @@ export function FirstBirthdayMark({
         stroke={gold}
         strokeWidth="1.35"
         strokeLinecap="round"
-        d="M48 85.6c2.6 3.8 7.2 3.8 9.8 0 2.6 3.8 7.2 3.8 9.8 0 2.6 3.8 7.2 3.8 9.8 0 2.6 3.8 7.2 3.8 9.8 0"
+        d="M50.4 85.6c2.6 3.8 7.2 3.8 9.8 0 2.6 3.8 7.2 3.8 9.8 0 2.6 3.8 7.2 3.8 9.8 0 2.6 3.8 7.2 3.8 9.8 0"
       />
 
       <path
@@ -108,10 +108,7 @@ export function FirstBirthdayMark({
       />
 
       <path
-        fill={cream}
-        stroke={gold}
-        strokeWidth="1.5"
-        strokeLinejoin="round"
+        fill={gold}
         d="M63.1 41.1 71.1 36h5.8v25.7H86V66H54v-4.3h11.4V44.6Z"
       />
 
