@@ -18,7 +18,6 @@ type Bit = {
 
 const COLORS = ["#c4a06a", "#9c3d45", "#fff8f1", "#8b3a42", "#f6e4d8", "#c4a06a"];
 const LAUNCH_EVERY_MS = 900;
-const ROCKETS = 10;
 
 function isControl(target: EventTarget | null) {
   return target instanceof Element && Boolean(target.closest("a, button, input, textarea, select, label"));
@@ -137,45 +136,34 @@ export function PosterCrackers({
 
     const w = poster.clientWidth;
     const h = poster.clientHeight;
-    const reach = Math.min(w, h) * 0.42;
-    const next: Bit[] = [];
-    let flight = 980;
+    const y1 = h - 22;
+    const radius = Math.min(w * 0.34, h * 0.26, x - 10, w - x - 10, y - 10, h - y - 10, 112);
+    const burstRadius = Math.max(radius, 72);
+    const rise = y1 - y;
 
-    for (let i = 0; i < ROCKETS; i += 1) {
-      const angle = (i / ROCKETS) * Math.PI * 2;
-      let ox = x + Math.cos(angle) * reach;
-      let oy = y + Math.sin(angle) * reach;
-      ox = Math.min(w - 16, Math.max(16, ox));
-      oy = Math.min(h - 16, Math.max(16, oy));
-      const dx = x - ox;
-      const dy = y - oy;
-      const dist = Math.hypot(dx, dy);
-      if (dist < 28) continue;
-      flight = Math.max(flight, 880 + dist * 1.1);
-      next.push({
-        id: ++nextId.current,
-        kind: "rocket",
-        x: ox,
-        y: oy,
-        color: i % 2 === 0 ? "#c4a06a" : "#9c3d45",
-        rot: (Math.atan2(dy, dx) * 180) / Math.PI,
-        dist,
-        length: 18,
-        delay: i * 18,
-        duration: 880 + dist * 1.1,
-      });
+    if (rise < 40) {
+      spawnBurst(x, y, burstRadius);
+      return;
     }
 
-    if (next.length === 0) return;
+    const flight = 920 + rise * 1.35;
+    const rocket: Bit = {
+      id: ++nextId.current,
+      kind: "rocket",
+      x,
+      y: y1,
+      color: "#c4a06a",
+      rot: 0,
+      dist: y - y1,
+      length: 22,
+      delay: 0,
+      duration: flight,
+    };
 
-    setBits((current) => [...current, ...next].slice(-180));
-    const first = next[0].id;
-    const last = next[next.length - 1].id;
-    const radius = Math.min(w * 0.34, h * 0.26, x - 10, w - x - 10, y - 10, h - y - 10, 112);
-
-    window.setTimeout(() => spawnBurst(x, y, Math.max(radius, 72)), flight);
+    setBits((current) => [...current, rocket].slice(-180));
+    window.setTimeout(() => spawnBurst(x, y, burstRadius), flight);
     window.setTimeout(() => {
-      setBits((current) => current.filter((item) => item.id < first || item.id > last));
+      setBits((current) => current.filter((item) => item.id !== rocket.id));
     }, flight + 40);
   }
 
@@ -250,7 +238,7 @@ export function PosterCrackers({
                   left: bit.x,
                   top: bit.y,
                   background: bit.color,
-                  width: bit.kind === "core" ? 16 : bit.length,
+                  width: bit.kind === "rocket" ? 3 : bit.kind === "core" ? 16 : bit.length,
                   ["--rot" as string]: `${bit.rot}deg`,
                   ["--dist" as string]: `${bit.dist}px`,
                   ["--delay" as string]: `${bit.delay}ms`,
