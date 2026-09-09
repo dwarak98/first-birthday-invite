@@ -92,14 +92,34 @@ body {
   animation: ring-warmth 2.6s ease-in-out infinite;
 }
 
-.invite-spark {
+.invite-cracker-streak,
+.invite-cracker-core {
   pointer-events: none;
   position: absolute;
   z-index: 20;
-  width: 22px;
-  height: 22px;
-  margin: -11px 0 0 -11px;
-  animation: invite-spark 0.7s ease-out forwards;
+  display: block;
+  animation-fill-mode: forwards;
+}
+
+.invite-cracker-streak {
+  height: 2px;
+  margin-top: -1px;
+  border-radius: 1px;
+  transform-origin: left center;
+  animation-name: invite-cracker-streak;
+  animation-duration: var(--dur);
+  animation-delay: var(--delay);
+  animation-timing-function: ease-out;
+}
+
+.invite-cracker-core {
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 999px;
+  animation-name: invite-cracker-core;
+  animation-duration: var(--dur);
+  animation-delay: var(--delay);
+  animation-timing-function: ease-out;
 }
 
 @keyframes flame-flicker {
@@ -191,18 +211,33 @@ body {
   }
 }
 
-@keyframes invite-spark {
+@keyframes invite-cracker-streak {
   0% {
     opacity: 0;
-    transform: scale(0.2) rotate(-18deg);
+    transform: rotate(var(--rot)) translateX(0) scaleX(0.35);
   }
-  16% {
+  14% {
     opacity: 1;
-    transform: scale(1.12) rotate(8deg);
+    transform: rotate(var(--rot)) translateX(3px) scaleX(1);
   }
   100% {
     opacity: 0;
-    transform: scale(0.35) rotate(22deg);
+    transform: rotate(var(--rot)) translateX(var(--dist)) scaleX(0.2);
+  }
+}
+
+@keyframes invite-cracker-core {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  20% {
+    opacity: 1;
+    transform: scale(1.25);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.2);
   }
 }
 
@@ -217,7 +252,8 @@ body {
   .flame-inner,
   .candle-ring-light,
   .candle-ring,
-  .invite-spark {
+  .invite-cracker-streak,
+  .invite-cracker-core {
     animation: none;
   }
 }

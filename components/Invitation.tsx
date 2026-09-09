@@ -1,5 +1,5 @@
 import { FirstBirthdayMark } from "@/components/FirstBirthdayMark";
-import { GoldSparks } from "@/components/GoldSparks";
+import { PosterCrackers } from "@/components/PosterCrackers";
 import { LanguageToggle } from "@/components/LanguageToggle";
 import { copyFor } from "@/lib/copy";
 import { event, type Locale } from "@/lib/event";
@@ -35,8 +35,11 @@ export function Invitation({ locale }: { locale: Locale }) {
   const age = tamil ? event.ageTa : event.ageEn;
 
   return (
-    <GoldSparks className={`invite-stage relative px-3 py-3 sm:px-4 sm:py-10 ${tamil ? "font-tamil" : ""}`}>
-      <article className="poster relative mx-auto w-full max-w-[440px] overflow-hidden rounded-[1.75rem]">
+    <PosterCrackers className={`invite-stage relative px-3 py-3 sm:px-4 sm:py-10 ${tamil ? "font-tamil" : ""}`}>
+      <article
+        data-invite-poster
+        className="poster relative mx-auto w-full max-w-[440px] overflow-hidden rounded-[1.75rem]"
+      >
         <Frame />
 
         <div className="relative flex min-h-[calc(100svh-1.5rem)] flex-col px-5 pt-5 pb-5 sm:min-h-0 sm:px-8 sm:pt-7 sm:pb-6">
@@ -140,6 +143,6 @@ export function Invitation({ locale }: { locale: Locale }) {
           <div className="mx-auto mt-3 h-px w-full bg-gold/35" />
         </div>
       </article>
-    </GoldSparks>
+    </PosterCrackers>
   );
 }
