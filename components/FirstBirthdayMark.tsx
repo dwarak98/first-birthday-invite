@@ -18,7 +18,6 @@ export function FirstBirthdayMark({
   animate = true,
 }: FirstBirthdayMarkProps) {
   const glowId = "first-birthday-flame-glow";
-  const frostingId = "first-birthday-frosting";
 
   return (
     <svg
@@ -36,10 +35,6 @@ export function FirstBirthdayMark({
           <stop offset="70%" stopColor="#f0a04a" stopOpacity="0.2" />
           <stop offset="100%" stopColor="#f0a04a" stopOpacity="0" />
         </radialGradient>
-        <linearGradient id={frostingId} x1="70" y1="64" x2="70" y2="86">
-          <stop offset="0%" stopColor="#fbe4d4" />
-          <stop offset="100%" stopColor="#f3cbb8" />
-        </linearGradient>
       </defs>
 
       <circle cx="70" cy="70" r="66" stroke={gold} strokeWidth="0.7" opacity="0.35" />
@@ -67,14 +62,9 @@ export function FirstBirthdayMark({
         width="44"
         height="20"
         rx="5"
-        fill={`url(#${frostingId})`}
+        fill={cream}
         stroke={rose}
         strokeWidth="1.5"
-      />
-      <path
-        fill={rose}
-        opacity="0.28"
-        d="M56.8 66.5c2.2 4 6.6 4 8.8 0 2.2 4 6.6 4 8.8 0 2.2 4 6.6 4 8.8 0"
       />
       <rect
         x="36"
@@ -109,6 +99,9 @@ export function FirstBirthdayMark({
 
       <path
         fill={gold}
+        stroke="#5a3210"
+        strokeWidth="1.8"
+        strokeLinejoin="round"
         d="M63.1 41.1 71.1 36h5.8v25.7H86V66H54v-4.3h11.4V44.6Z"
       />
 
