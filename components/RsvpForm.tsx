@@ -8,7 +8,7 @@ import type { Locale } from "@/lib/event";
 const initial: RsvpState = {};
 
 const fieldClass =
-  "w-full border-0 border-b border-faint bg-transparent px-0 py-3 text-[15px] text-ink outline-none transition placeholder:text-muted/60 focus:border-ink";
+  "w-full rounded-xl border border-gold/30 bg-white/80 px-3 py-2.5 text-sm text-ink outline-none transition focus:border-rose";
 
 export function RsvpForm({ locale }: { locale: Locale }) {
   const copy = copyFor(locale);
@@ -17,8 +17,8 @@ export function RsvpForm({ locale }: { locale: Locale }) {
 
   if (state.ok) {
     return (
-      <div className="rounded-xl bg-accent-soft px-6 py-8">
-        <p className="text-[15px] leading-7 text-ink">
+      <div className="rounded-2xl bg-blush/70 px-4 py-6 text-center">
+        <p className="text-sm leading-6 text-ink">
           {state.attending ? copy.thanksYes : copy.thanksNo}
         </p>
       </div>
@@ -26,22 +26,22 @@ export function RsvpForm({ locale }: { locale: Locale }) {
   }
 
   return (
-    <form action={action} className="space-y-7">
+    <form action={action} className="space-y-3">
       <input type="hidden" name="locale" value={locale} />
 
       <label className="block">
-        <span className="mb-1 block text-xs font-medium tracking-widest text-muted uppercase">
+        <span className="mb-1 block text-[10px] font-medium tracking-[0.18em] text-muted uppercase">
           {copy.nameLabel}
         </span>
         <input required name="name" maxLength={80} className={fieldClass} />
       </label>
 
       <fieldset>
-        <legend className="mb-3 block text-xs font-medium tracking-widest text-muted uppercase">
+        <legend className="mb-1.5 block text-[10px] font-medium tracking-[0.18em] text-muted uppercase">
           {copy.attendingLabel}
         </legend>
-        <div className="inline-flex w-full rounded-lg bg-accent-soft p-0.5 sm:w-auto">
-          <label className="flex-1 sm:flex-none">
+        <div className="grid grid-cols-2 gap-2">
+          <label>
             <input
               type="radio"
               name="attending"
@@ -51,11 +51,11 @@ export function RsvpForm({ locale }: { locale: Locale }) {
               required
               className="peer sr-only"
             />
-            <span className="block cursor-pointer rounded-md px-4 py-2.5 text-center text-sm font-medium text-muted transition peer-checked:bg-surface peer-checked:text-ink peer-checked:shadow-sm">
+            <span className="block cursor-pointer rounded-xl border border-gold/30 px-2 py-2.5 text-center text-[11px] leading-4 font-medium text-muted transition peer-checked:border-rose peer-checked:bg-rose peer-checked:text-white">
               {copy.yes}
             </span>
           </label>
-          <label className="flex-1 sm:flex-none">
+          <label>
             <input
               type="radio"
               name="attending"
@@ -64,7 +64,7 @@ export function RsvpForm({ locale }: { locale: Locale }) {
               onChange={() => setAttending("no")}
               className="peer sr-only"
             />
-            <span className="block cursor-pointer rounded-md px-4 py-2.5 text-center text-sm font-medium text-muted transition peer-checked:bg-surface peer-checked:text-ink peer-checked:shadow-sm">
+            <span className="block cursor-pointer rounded-xl border border-gold/30 px-2 py-2.5 text-center text-[11px] leading-4 font-medium text-muted transition peer-checked:border-rose peer-checked:bg-rose peer-checked:text-white">
               {copy.no}
             </span>
           </label>
@@ -73,7 +73,7 @@ export function RsvpForm({ locale }: { locale: Locale }) {
 
       {attending === "yes" ? (
         <label className="block">
-          <span className="mb-1 block text-xs font-medium tracking-widest text-muted uppercase">
+          <span className="mb-1 block text-[10px] font-medium tracking-[0.18em] text-muted uppercase">
             {copy.peopleLabel}
           </span>
           <input
@@ -90,13 +90,11 @@ export function RsvpForm({ locale }: { locale: Locale }) {
         <input type="hidden" name="people" value="0" />
       )}
 
-      {state.error ? (
-        <p className="text-sm text-ink">{copy.error}</p>
-      ) : null}
+      {state.error ? <p className="text-xs text-rose">{copy.error}</p> : null}
 
       <button
         disabled={pending}
-        className="w-full rounded-lg bg-accent px-5 py-3.5 text-sm font-medium text-white transition hover:bg-ink/85 disabled:opacity-50"
+        className="w-full rounded-full bg-ink px-4 py-3 text-sm font-medium text-white transition hover:bg-dusk disabled:opacity-50"
       >
         {pending ? copy.submitting : copy.submit}
       </button>

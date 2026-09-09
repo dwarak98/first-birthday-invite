@@ -1,29 +1,32 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #f7f7f5;
-  --surface: #ffffff;
-  --ink: #111111;
-  --muted: #6b6b6b;
-  --faint: #e8e8e4;
-  --accent: #1a1a1a;
-  --accent-soft: #f0efeb;
+  --paper: #fff8f1;
+  --ink: #3a1c1a;
+  --muted: #7a564e;
+  --gold: #c4a06a;
+  --maroon: #8b3a42;
+  --rose: #9c3d45;
+  --dusk: #4a1f28;
+  --blush: #f6e4d8;
+  --line: rgba(196, 160, 106, 0.45);
 }
 
 @theme inline {
-  --color-bg: var(--bg);
-  --color-surface: var(--surface);
+  --color-paper: var(--paper);
   --color-ink: var(--ink);
   --color-muted: var(--muted);
-  --color-faint: var(--faint);
-  --color-accent: var(--accent);
-  --color-accent-soft: var(--accent-soft);
+  --color-gold: var(--gold);
+  --color-maroon: var(--maroon);
+  --color-rose: var(--rose);
+  --color-dusk: var(--dusk);
+  --color-blush: var(--blush);
   --font-sans: var(--font-body);
 }
 
 html,
 body {
-  background: var(--bg);
+  background: var(--paper);
   color: var(--ink);
 }
 
@@ -33,6 +36,24 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+.font-display {
+  font-family: var(--font-display), var(--font-tamil), serif;
+}
+
 .font-tamil {
   font-family: var(--font-tamil), sans-serif;
+}
+
+.invite-stage {
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, #a85a62 0%, transparent 55%),
+    radial-gradient(ellipse at bottom, #2a1016 0%, #4a1f28 42%, #6e323c 100%);
+}
+
+.poster {
+  background:
+    linear-gradient(180deg, rgba(255, 252, 248, 0.96), rgba(255, 248, 241, 1));
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.7) inset,
+    0 28px 70px rgba(28, 8, 12, 0.4);
 }

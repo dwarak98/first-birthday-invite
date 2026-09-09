@@ -8,6 +8,7 @@ export const contentType = "image/png";
 
 export default async function OgImage() {
   const copy = copyFor("en");
+  const [first, ...rest] = copy.name.split(" ");
 
   return new ImageResponse(
     (
@@ -16,65 +17,82 @@ export default async function OgImage() {
           width: "100%",
           height: "100%",
           display: "flex",
-          flexDirection: "column",
+          alignItems: "center",
           justifyContent: "center",
-          background: "#f7f7f5",
-          padding: 80,
+          background: "#4a1f28",
         }}
       >
         <div
           style={{
-            fontSize: 22,
-            letterSpacing: "0.2em",
-            textTransform: "uppercase",
-            color: "#6b6b6b",
-            fontFamily: "sans-serif",
+            width: 920,
+            height: 500,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "#fff8f1",
+            borderRadius: 28,
+            border: "1px solid #c4a06a",
           }}
         >
-          {copy.scriptEyebrow}
-        </div>
-        <div
-          style={{
-            marginTop: 32,
-            fontSize: 72,
-            fontWeight: 500,
-            color: "#111111",
-            fontFamily: "sans-serif",
-            lineHeight: 1.05,
-            letterSpacing: "-0.02em",
-          }}
-        >
-          {copy.name}
-        </div>
-        <div
-          style={{
-            marginTop: 16,
-            fontSize: 32,
-            color: "#6b6b6b",
-            fontFamily: "sans-serif",
-          }}
-        >
-          {event.ageEn}
-        </div>
-        <div
-          style={{
-            marginTop: 48,
-            fontSize: 26,
-            color: "#111111",
-            fontFamily: "sans-serif",
-          }}
-        >
-          {`${copy.date} · ${copy.time}`}
-        </div>
-        <div
-          style={{
-            marginTop: 12,
-            fontSize: 24,
-            color: "#6b6b6b",
-            fontFamily: "sans-serif",
-          }}
-        >
-          {copy.venueName}
+          <div
+            style={{
+              fontSize: 18,
+              letterSpacing: "0.35em",
+              textTransform: "uppercase",
+              color: "#9c3d45",
+            }}
+          >
+            {copy.scriptEyebrow}
+          </div>
+          <div
+            style={{
+              marginTop: 22,
+              fontSize: 72,
+              color: "#3a1c1a",
+              lineHeight: 1,
+            }}
+          >
+            {first}
+          </div>
+          <div
+            style={{
+              marginTop: 8,
+              fontSize: 36,
+              color: "#3a1c1a",
+            }}
+          >
+            {rest.join(" ")}
+          </div>
+          <div
+            style={{
+              marginTop: 16,
+              fontSize: 18,
+              letterSpacing: "0.28em",
+              textTransform: "uppercase",
+              color: "#c4a06a",
+            }}
+          >
+            {event.ageEn}
+          </div>
+          <div
+            style={{
+              marginTop: 28,
+              fontSize: 24,
+              color: "#3a1c1a",
+            }}
+          >
+            {`${copy.date} · ${copy.time}`}
+          </div>
+          <div
+            style={{
+              marginTop: 10,
+              fontSize: 22,
+              color: "#7a564e",
+            }}
+          >
+            {copy.venueName}
+          </div>
         </div>
       </div>
     ),

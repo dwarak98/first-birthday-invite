@@ -5,24 +5,20 @@ export function LanguageToggle({ locale }: { locale: Locale }) {
   const copy = copyFor(locale);
 
   return (
-    <nav className="shrink-0" aria-label="Language">
-      <div className="inline-flex rounded-lg bg-accent-soft p-0.5">
+    <nav aria-label="Language">
+      <div className="inline-flex rounded-full border border-gold/30 p-0.5">
         <a
           href="/"
-          className={`rounded-md px-3 py-1.5 text-xs font-medium transition ${
-            locale === "en"
-              ? "bg-surface text-ink shadow-sm"
-              : "text-muted hover:text-ink"
+          className={`rounded-full px-2.5 py-1 text-[10px] font-medium tracking-wide transition ${
+            locale === "en" ? "bg-ink text-white" : "text-muted hover:text-ink"
           }`}
         >
           EN
         </a>
         <a
           href="/?lang=ta"
-          className={`rounded-md px-3 py-1.5 text-xs font-medium transition ${
-            locale === "ta"
-              ? "bg-surface text-ink shadow-sm"
-              : "text-muted hover:text-ink"
+          className={`rounded-full px-2.5 py-1 text-[10px] font-medium tracking-wide transition ${
+            locale === "ta" ? "bg-ink text-white" : "text-muted hover:text-ink"
           }`}
         >
           TA
