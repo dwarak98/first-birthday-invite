@@ -100,16 +100,17 @@ export function FirstBirthdayMark({
       <path
         fill={gold}
         stroke="#5a3210"
-        strokeWidth="1.6"
+        strokeWidth="1.55"
         strokeLinejoin="round"
-        d="M65 50 71.5 40h5V61.5H79v3.2H69V61.5H71.5V48Z"
+        strokeLinecap="round"
+        d="M67 38.2H75Q76.8 38.2 76.8 40V57.2C76.8 58.6 78.4 59.5 80 59.5H80.4Q81.8 59.5 81.8 61.1V63.2Q81.8 64.8 80.2 64.8H61.8Q60.2 64.8 60.2 63.2V61.1Q60.2 59.5 61.6 59.5H62C63.6 59.5 65.2 58.6 65.2 57.2V46.5L59.4 52A3.3 3.3 0 0 1 55.2 48.4L67 38.2Z"
       />
 
       <g className={animate ? "flame" : undefined}>
         <ellipse
           className={animate ? "flame-halo" : undefined}
-          cx="74"
-          cy="28"
+          cx="71"
+          cy="27.5"
           rx="7"
           ry="9"
           fill={`url(#${glowId})`}
@@ -117,12 +118,12 @@ export function FirstBirthdayMark({
         <path
           className={animate ? "flame-outer" : undefined}
           fill="#e86a3a"
-          d="M74 21c-2.8 3.8-3 7.2 0 10 3-2.8 2.8-6.2 0-10Z"
+          d="M71 20.5c-2.8 3.8-3 7.2 0 10 3-2.8 2.8-6.2 0-10Z"
         />
         <path
           className={animate ? "flame-inner" : undefined}
           fill="#ffd27a"
-          d="M74 24.4c-1.3 1.8-1.4 3.4 0 4.8 1.4-1.4 1.3-3 0-4.8Z"
+          d="M71 23.9c-1.3 1.8-1.4 3.4 0 4.8 1.4-1.4 1.3-3 0-4.8Z"
         />
       </g>
     </svg>
