@@ -1,6 +1,5 @@
 import { FirstBirthdayMark } from "@/components/FirstBirthdayMark";
 import { LanguageToggle } from "@/components/LanguageToggle";
-import { RsvpForm } from "@/components/RsvpForm";
 import { copyFor } from "@/lib/copy";
 import { event, type Locale } from "@/lib/event";
 
@@ -141,18 +140,6 @@ export function Invitation({ locale }: { locale: Locale }) {
           </p>
           <div className="mx-auto mt-3 h-px w-full bg-gold/35" />
         </div>
-
-        <section id="rsvp" className="px-5 pt-8 pb-7 sm:px-8 sm:pb-8">
-          <h2
-            className={`text-center text-2xl text-ink ${tamil ? "font-semibold" : "font-display"}`}
-          >
-            {copy.rsvpTitle}
-          </h2>
-          <p className="mx-auto mt-1 mb-4 max-w-[22rem] text-center text-[12px] leading-5 text-muted">
-            {copy.rsvpLead}
-          </p>
-          <RsvpForm locale={locale} />
-        </section>
       </article>
     </div>
   );
