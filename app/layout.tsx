@@ -34,8 +34,8 @@ const tamil = Noto_Sans_Tamil({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),
-  title: "First birthday invitation",
-  description: "You're invited — RSVP in English or Tamil.",
+  title: "You're invited",
+  description: "Join us for a first birthday celebration.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

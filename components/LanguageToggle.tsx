@@ -8,7 +8,7 @@ export function LanguageToggle({ locale }: { locale: Locale }) {
     <nav className="flex justify-center" aria-label="Language">
       <div className="inline-flex rounded-full border border-gold/40 bg-white/80 p-1 shadow-sm">
         <a
-          href="/en"
+          href="/"
           className={`rounded-full px-4 py-1.5 text-sm font-semibold transition ${
             locale === "en"
               ? "bg-maroon text-white"
@@ -18,7 +18,7 @@ export function LanguageToggle({ locale }: { locale: Locale }) {
           English
         </a>
         <a
-          href="/ta"
+          href="/?lang=ta"
           className={`rounded-full px-4 py-1.5 text-sm font-semibold transition ${
             locale === "ta"
               ? "bg-maroon text-white"

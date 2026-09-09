@@ -2,7 +2,6 @@ import { ImageResponse } from "next/og";
 import { readFile } from "fs/promises";
 import { join } from "path";
 import { copyFor } from "@/lib/copy";
-import { isLocale, type Locale } from "@/lib/event";
 
 export const alt = "First birthday invitation";
 export const size = { width: 1200, height: 630 };
@@ -12,19 +11,9 @@ async function loadFont(name: string) {
   return readFile(join(process.cwd(), "public/fonts", name));
 }
 
-export default async function OgImage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale: raw } = await params;
-  const locale: Locale = isLocale(raw) ? raw : "en";
-  const copy = copyFor(locale);
-  const tamil = locale === "ta";
-
-  const [tamilRegular, tamilBold, script, display] = await Promise.all([
-    loadFont("NotoSansTamil-Regular.ttf"),
-    loadFont("NotoSansTamil-Bold.ttf"),
+export default async function OgImage() {
+  const copy = copyFor("en");
+  const [script, display] = await Promise.all([
     loadFont("GreatVibes-Regular.ttf"),
     loadFont("PlayfairDisplay-SemiBold.ttf"),
   ]);
@@ -54,9 +43,9 @@ export default async function OgImage({
         >
           <div
             style={{
-              fontSize: tamil ? 36 : 64,
+              fontSize: 64,
               color: "#7a2e3a",
-              fontFamily: tamil ? "Tamil" : "Script",
+              fontFamily: "Script",
             }}
           >
             {copy.scriptEyebrow}
@@ -64,9 +53,9 @@ export default async function OgImage({
           <div
             style={{
               marginTop: 18,
-              fontSize: tamil ? 52 : 58,
+              fontSize: 58,
               color: "#3d2a2a",
-              fontFamily: tamil ? "TamilBold" : "Display",
+              fontFamily: "Display",
               textAlign: "center",
               paddingLeft: 48,
               paddingRight: 48,
@@ -80,7 +69,7 @@ export default async function OgImage({
               marginTop: 28,
               fontSize: 28,
               color: "#7a2e3a",
-              fontFamily: tamil ? "TamilBold" : "Display",
+              fontFamily: "Display",
             }}
           >
             {copy.date}
@@ -90,7 +79,7 @@ export default async function OgImage({
               marginTop: 8,
               fontSize: 24,
               color: "#3d2a2a",
-              fontFamily: tamil ? "Tamil" : "Display",
+              fontFamily: "Display",
             }}
           >
             {copy.time}
@@ -100,7 +89,7 @@ export default async function OgImage({
               marginTop: 28,
               fontSize: 22,
               color: "#5c4444",
-              fontFamily: tamil ? "Tamil" : "Display",
+              fontFamily: "Display",
               textAlign: "center",
               paddingLeft: 40,
               paddingRight: 40,
@@ -113,15 +102,10 @@ export default async function OgImage({
     ),
     {
       ...size,
-      fonts: tamil
-        ? [
-            { name: "Tamil", data: tamilRegular, weight: 400, style: "normal" },
-            { name: "TamilBold", data: tamilBold, weight: 700, style: "normal" },
-          ]
-        : [
-            { name: "Script", data: script, weight: 400, style: "normal" },
-            { name: "Display", data: display, weight: 600, style: "normal" },
-          ],
+      fonts: [
+        { name: "Script", data: script, weight: 400, style: "normal" },
+        { name: "Display", data: display, weight: 600, style: "normal" },
+      ],
     },
   );
 }

@@ -50,7 +50,7 @@ export function copyFor(locale: Locale) {
       ? "ஒரு சிக்கல் ஏற்பட்டது. மீண்டும் முயற்சிக்கவும்."
       : "Something went wrong. Please try again.",
     switchTo: tamil ? "English" : "தமிழ்",
-    switchHref: tamil ? "/en" : "/ta",
+    switchHref: tamil ? "/" : "/?lang=ta",
     switchHint: tamil ? "View in English" : "தமிழில் பார்க்க",
     ogTitle: tamil
       ? `${name} — ${event.ageTa} அழைப்பிதழ்`
