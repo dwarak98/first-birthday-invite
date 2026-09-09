@@ -9,7 +9,7 @@ type FirstBirthdayMarkProps = {
 
 export function FirstBirthdayMark({
   title,
-  size = 108,
+  size = 151,
   gold = "#c4a06a",
   rose = "#9c3d45",
   cream = "#fff8f1",

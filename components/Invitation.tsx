@@ -37,101 +37,112 @@ export function Invitation({ locale }: { locale: Locale }) {
   const age = tamil ? event.ageTa : event.ageEn;
 
   return (
-    <div className={`invite-stage min-h-screen px-4 py-8 sm:py-10 ${tamil ? "font-tamil" : ""}`}>
-      <article className="poster relative mx-auto w-full max-w-[440px] overflow-hidden rounded-[1.75rem] px-5 py-6 sm:px-8 sm:py-7">
+    <div className={`invite-stage px-3 py-3 sm:px-4 sm:py-10 ${tamil ? "font-tamil" : ""}`}>
+      <article className="poster relative mx-auto w-full max-w-[440px] overflow-hidden rounded-[1.75rem]">
         <Corners />
 
-        <div className="relative flex items-center justify-between">
-          <p
-            className={`text-[10px] font-medium tracking-[0.28em] text-rose ${
-              tamil ? "" : "uppercase"
-            }`}
-          >
-            {copy.scriptEyebrow}
-          </p>
-          <LanguageToggle locale={locale} />
-        </div>
-
-        <div className="mt-5 flex justify-center">
-          <FirstBirthdayMark title={age} />
-        </div>
-
-        <header className="mt-4 text-center">
-          <h1
-            className={`leading-[0.95] text-ink ${
-              tamil ? "text-[2.35rem] font-semibold" : "font-display text-[3.15rem] font-medium tracking-tight sm:text-[3.4rem]"
-            }`}
-          >
-            {first}
-          </h1>
-          {rest ? (
+        <div className="relative flex min-h-[calc(100svh-1.5rem)] flex-col px-5 pt-5 pb-5 sm:min-h-0 sm:px-8 sm:pt-7 sm:pb-6">
+          <div className="flex items-center justify-between">
             <p
-              className={`mt-1 text-ink/85 ${
-                tamil ? "text-xl font-semibold" : "font-display text-[1.85rem] font-normal tracking-tight"
+              className={`text-[10px] font-medium tracking-[0.28em] text-rose ${
+                tamil ? "" : "uppercase"
               }`}
             >
-              {rest}
+              {copy.scriptEyebrow}
             </p>
-          ) : null}
-          <p
-            className={`mt-4 text-rose ${
-              tamil
-                ? "text-base font-semibold"
-                : "text-[13px] font-semibold tracking-[0.22em] uppercase"
-            }`}
-          >
-            {copy.occasion}
-          </p>
-        </header>
+            <LanguageToggle locale={locale} />
+          </div>
 
-        <div className="mx-auto mt-6 h-px w-16 bg-gold/50" />
+          <div className="mt-3 flex justify-center">
+            <FirstBirthdayMark title={age} size={151} />
+          </div>
 
-        <section className="mt-5 grid grid-cols-2 divide-x divide-gold/25 overflow-hidden rounded-2xl bg-blush/55">
-          <div className="px-3 py-4 text-center">
-            <p className="text-[10px] font-medium tracking-[0.22em] text-muted uppercase">
-              {copy.whenLabel}
-            </p>
-            {when.weekday ? (
-              <p className="mt-2 text-[10px] font-medium tracking-[0.18em] text-rose uppercase">
-                {when.weekday}
+          <header className="mt-3 text-center">
+            <h1
+              className={`leading-[0.95] text-ink ${
+                tamil
+                  ? "text-[2.1rem] font-semibold"
+                  : "font-display text-[2.85rem] font-medium tracking-tight sm:text-[3.4rem]"
+              }`}
+            >
+              {first}
+            </h1>
+            {rest ? (
+              <p
+                className={`mt-0.5 text-ink/85 ${
+                  tamil
+                    ? "text-lg font-semibold"
+                    : "font-display text-[1.65rem] font-normal tracking-tight sm:text-[1.85rem]"
+                }`}
+              >
+                {rest}
               </p>
             ) : null}
-            <p className={`mt-1 text-[15px] leading-snug text-ink ${tamil ? "font-semibold" : "font-display"}`}>
-              {when.date}
-            </p>
-            <p className="mt-1 text-[12px] tracking-wide text-muted">{copy.time}</p>
-          </div>
-          <div className="px-3 py-4 text-center">
-            <p className="text-[10px] font-medium tracking-[0.22em] text-muted uppercase">
-              {copy.whereLabel}
-            </p>
-            <p className={`mt-2 text-[15px] leading-snug text-ink ${tamil ? "font-semibold" : "font-display"}`}>
-              {copy.venueName}
-            </p>
-            <p className="mt-1 text-[11px] leading-4 text-muted">
-              {copy.venueAddress}
-            </p>
-            <a
-              href={event.mapsUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-2 inline-flex items-center gap-1 rounded-full bg-rose px-3 py-1.5 text-[11px] font-medium text-white transition hover:bg-maroon"
+            <p
+              className={`mt-2 text-rose ${
+                tamil
+                  ? "text-sm font-semibold"
+                  : "text-[12px] font-semibold tracking-[0.22em] uppercase"
+              }`}
             >
-              {copy.mapsCta}
-              <span aria-hidden>↗</span>
-            </a>
-          </div>
-        </section>
+              {copy.occasion}
+            </p>
+          </header>
 
-        <p className="mt-6 text-center text-[13px] text-muted">
-          {copy.fromLabel},{" "}
-          <span className={`${tamil ? "font-semibold" : "font-display text-base"} text-ink`}>
-            {copy.hosts}
-          </span>
-        </p>
+          <section className="mt-4 grid grid-cols-2 divide-x divide-gold/25 overflow-hidden rounded-2xl bg-blush/55">
+            <div className="px-3 py-3 text-center">
+              <p className="text-[10px] font-medium tracking-[0.22em] text-muted uppercase">
+                {copy.whenLabel}
+              </p>
+              {when.weekday ? (
+                <p className="mt-1.5 text-[10px] font-medium tracking-[0.18em] text-rose uppercase">
+                  {when.weekday}
+                </p>
+              ) : null}
+              <p
+                className={`mt-1 text-[15px] leading-snug text-ink ${tamil ? "font-semibold" : "font-display"}`}
+              >
+                {when.date}
+              </p>
+              <p className="mt-1 text-[12px] tracking-wide text-muted">{copy.time}</p>
+            </div>
+            <div className="px-3 py-3 text-center">
+              <p className="text-[10px] font-medium tracking-[0.22em] text-muted uppercase">
+                {copy.whereLabel}
+              </p>
+              <p
+                className={`mt-1.5 text-[15px] leading-snug text-ink ${tamil ? "font-semibold" : "font-display"}`}
+              >
+                {copy.venueName}
+              </p>
+              <p className="mt-1 text-[11px] leading-4 text-muted">
+                {copy.venueAddress}
+              </p>
+              <a
+                href={event.mapsUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-2 inline-flex items-center gap-1 rounded-full bg-rose px-3 py-1.5 text-[11px] font-medium text-white transition hover:bg-maroon"
+              >
+                {copy.mapsCta}
+                <span aria-hidden>↗</span>
+              </a>
+            </div>
+          </section>
 
-        <section id="rsvp" className="mt-5 border-t border-gold/25 pt-5">
-          <h2 className={`text-center text-lg text-ink ${tamil ? "font-semibold" : "font-display"}`}>
+          <p className="mt-auto pt-4 text-center text-[13px] text-muted">
+            {copy.fromLabel},{" "}
+            <span className={`${tamil ? "font-semibold" : "font-display text-base"} text-ink`}>
+              {copy.hosts}
+            </span>
+          </p>
+          <div className="mx-auto mt-4 h-px w-full bg-gold/35" />
+        </div>
+
+        <section id="rsvp" className="px-5 pt-8 pb-7 sm:px-8 sm:pb-8">
+          <h2
+            className={`text-center text-2xl text-ink ${tamil ? "font-semibold" : "font-display"}`}
+          >
             {copy.rsvpTitle}
           </h2>
           <p className="mx-auto mt-1 mb-4 max-w-[22rem] text-center text-[12px] leading-5 text-muted">
