@@ -1,10 +1,11 @@
 "use client";
 
-import { useRef, useState, type PointerEvent, type ReactNode } from "react";
+import { useLayoutEffect, useRef, useState, type PointerEvent, type ReactNode } from "react";
+import { createPortal } from "react-dom";
 
-type Cracker = {
+type Bit = {
   id: number;
-  kind: "streak" | "core";
+  kind: "rocket" | "streak" | "core" | "spark";
   x: number;
   y: number;
   color: string;
@@ -15,10 +16,8 @@ type Cracker = {
   duration: number;
 };
 
-const TAP_SLOP = 12;
-const HOLD_MS = 280;
-const HOLD_EVERY_MS = 850;
 const COLORS = ["#c4a06a", "#9c3d45", "#fff8f1", "#8b3a42", "#f6e4d8", "#c4a06a"];
+const LAUNCH_EVERY_MS = 260;
 
 function isControl(target: EventTarget | null) {
   return target instanceof Element && Boolean(target.closest("a, button, input, textarea, select, label"));
@@ -26,47 +25,6 @@ function isControl(target: EventTarget | null) {
 
 function prefersReducedMotion() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-}
-
-function pointOnRoundedRect(
-  width: number,
-  height: number,
-  radius: number,
-  t: number,
-): { x: number; y: number } {
-  const r = Math.min(radius, width / 2, height / 2);
-  const h = width - 2 * r;
-  const v = height - 2 * r;
-  const arc = (Math.PI / 2) * r;
-  const segs = [h, arc, v, arc, h, arc, v, arc];
-  const total = segs.reduce((sum, len) => sum + len, 0);
-  let d = (((t % 1) + 1) % 1) * total;
-
-  if (d <= segs[0]) return { x: r + d, y: 0 };
-  d -= segs[0];
-  if (d <= segs[1]) {
-    const a = -Math.PI / 2 + d / r;
-    return { x: width - r + r * Math.cos(a), y: r + r * Math.sin(a) };
-  }
-  d -= segs[1];
-  if (d <= segs[2]) return { x: width, y: r + d };
-  d -= segs[2];
-  if (d <= segs[3]) {
-    const a = d / r;
-    return { x: width - r + r * Math.cos(a), y: height - r + r * Math.sin(a) };
-  }
-  d -= segs[3];
-  if (d <= segs[4]) return { x: width - r - d, y: height };
-  d -= segs[4];
-  if (d <= segs[5]) {
-    const a = Math.PI / 2 + d / r;
-    return { x: r + r * Math.cos(a), y: height - r + r * Math.sin(a) };
-  }
-  d -= segs[5];
-  if (d <= segs[6]) return { x: 0, y: height - r - d };
-  d -= segs[6];
-  const a = Math.PI + d / r;
-  return { x: r + r * Math.cos(a), y: r + r * Math.sin(a) };
 }
 
 export function PosterCrackers({
@@ -77,147 +35,194 @@ export function PosterCrackers({
   children: ReactNode;
 }) {
   const rootRef = useRef<HTMLDivElement>(null);
-  const pressRef = useRef<{ id: number; x: number; y: number; bursted: boolean } | null>(null);
-  const holdTimer = useRef(0);
-  const holdLoop = useRef(0);
+  const pressId = useRef<number | null>(null);
+  const loopRef = useRef(0);
   const nextId = useRef(0);
-  const [crackers, setCrackers] = useState<Cracker[]>([]);
+  const [host, setHost] = useState<HTMLElement | null>(null);
+  const [bits, setBits] = useState<Bit[]>([]);
 
-  function clearHold() {
-    window.clearTimeout(holdTimer.current);
-    window.clearInterval(holdLoop.current);
-    holdTimer.current = 0;
-    holdLoop.current = 0;
+  useLayoutEffect(() => {
+    const node = rootRef.current?.querySelector("[data-invite-poster]");
+    if (node instanceof HTMLElement) setHost(node);
+  }, []);
+
+  function stopShow() {
+    window.clearInterval(loopRef.current);
+    loopRef.current = 0;
+    pressId.current = null;
   }
 
-  function burst() {
-    const root = rootRef.current;
-    const poster = root?.querySelector("[data-invite-poster]");
-    if (!root || !(poster instanceof HTMLElement) || prefersReducedMotion()) return;
-
-    const stage = root.getBoundingClientRect();
-    const card = poster.getBoundingClientRect();
-    const radius = parseFloat(getComputedStyle(poster).borderTopLeftRadius) || 28;
-    const cx = card.left - stage.left + card.width / 2;
-    const cy = card.top - stage.top + card.height / 2;
-    const shift = Math.random();
-    const next: Cracker[] = [];
-
-    for (let i = 0; i < 10; i += 1) {
-      const { x, y } = pointOnRoundedRect(card.width, card.height, radius, shift + i / 10);
-      const ox = card.left - stage.left + x;
-      const oy = card.top - stage.top + y;
-      const outward = Math.atan2(oy - cy, ox - cx);
-      const delay = i * 18;
-
-      next.push({
+  function spawnBurst(x: number, y: number) {
+    const next: Bit[] = [
+      {
         id: ++nextId.current,
         kind: "core",
-        x: ox,
-        y: oy,
-        color: COLORS[i % 2 === 0 ? 0 : 1],
+        x,
+        y,
+        color: "#c4a06a",
         rot: 0,
         dist: 0,
-        length: 7,
-        delay,
-        duration: 420,
-      });
+        length: 8,
+        delay: 0,
+        duration: 480,
+      },
+    ];
 
-      for (let s = 0; s < 6; s += 1) {
-        const angle = outward + (Math.random() - 0.5) * 1.15;
-        next.push({
-          id: ++nextId.current,
-          kind: "streak",
-          x: ox,
-          y: oy,
-          color: COLORS[(i + s) % COLORS.length],
-          rot: (angle * 180) / Math.PI,
-          dist: 22 + Math.random() * 34,
-          length: 8 + Math.random() * 10,
-          delay: delay + s * 12,
-          duration: 520 + Math.random() * 220,
-        });
-      }
+    for (let s = 0; s < 12; s += 1) {
+      next.push({
+        id: ++nextId.current,
+        kind: "streak",
+        x,
+        y,
+        color: COLORS[s % COLORS.length],
+        rot: (s / 12) * 360 + (Math.random() - 0.5) * 22,
+        dist: 16 + Math.random() * 22,
+        length: 7 + Math.random() * 8,
+        delay: s * 8,
+        duration: 480 + Math.random() * 160,
+      });
     }
 
-    setCrackers((current) => [...current, ...next].slice(-120));
-    const life = 900;
+    for (let s = 0; s < 4; s += 1) {
+      next.push({
+        id: ++nextId.current,
+        kind: "spark",
+        x,
+        y,
+        color: COLORS[s % 4],
+        rot: Math.random() * 360,
+        dist: 10 + Math.random() * 16,
+        length: 11,
+        delay: 20 + s * 18,
+        duration: 520,
+      });
+    }
+
+    setBits((current) => [...current, ...next].slice(-140));
+    const last = next[next.length - 1].id;
+    const first = next[0].id;
     window.setTimeout(() => {
-      const first = next[0]?.id;
-      if (first === undefined) return;
-      setCrackers((current) => current.filter((item) => item.id < first || item.id > next[next.length - 1].id));
-    }, life);
+      setBits((current) => current.filter((item) => item.id < first || item.id > last));
+    }, 780);
+  }
+
+  function launchRockets(count: number) {
+    const poster = host ?? rootRef.current?.querySelector("[data-invite-poster]");
+    if (!(poster instanceof HTMLElement) || prefersReducedMotion()) return;
+
+    const w = poster.clientWidth;
+    const h = poster.clientHeight;
+    const next: Bit[] = [];
+
+    for (let i = 0; i < count; i += 1) {
+      const x1 = 28 + Math.random() * Math.max(w - 56, 40);
+      const y1 = h - 18;
+      const x2 = 32 + Math.random() * Math.max(w - 64, 40);
+      const y2 = 52 + Math.random() * Math.max(h * 0.4, 80);
+      const dx = x2 - x1;
+      const dy = y2 - y1;
+      const flight = 500 + Math.random() * 140;
+      const delay = i * 40;
+      const rocket: Bit = {
+        id: ++nextId.current,
+        kind: "rocket",
+        x: x1,
+        y: y1,
+        color: i % 2 === 0 ? "#c4a06a" : "#9c3d45",
+        rot: (Math.atan2(dy, dx) * 180) / Math.PI,
+        dist: Math.hypot(dx, dy),
+        length: 16 + Math.random() * 6,
+        delay,
+        duration: flight,
+      };
+      next.push(rocket);
+      window.setTimeout(() => spawnBurst(x2, y2), delay + flight * 0.84);
+    }
+
+    setBits((current) => [...current, ...next].slice(-140));
+    const first = next[0]?.id;
+    const last = next[next.length - 1]?.id;
+    if (first === undefined || last === undefined) return;
+    window.setTimeout(() => {
+      setBits((current) => current.filter((item) => item.id < first || item.id > last));
+    }, 760);
+  }
+
+  function startShow(pointer: number) {
+    if (prefersReducedMotion()) return;
+    stopShow();
+    pressId.current = pointer;
+    launchRockets(2);
+    loopRef.current = window.setInterval(() => {
+      if (pressId.current === null) return;
+      launchRockets(1);
+    }, LAUNCH_EVERY_MS);
   }
 
   function onPointerDown(event: PointerEvent<HTMLDivElement>) {
     if (event.pointerType === "mouse" && event.button !== 0) return;
-    if (isControl(event.target)) {
-      pressRef.current = null;
-      clearHold();
-      return;
+    if (isControl(event.target)) return;
+    try {
+      event.currentTarget.setPointerCapture(event.pointerId);
+    } catch {
+      /* capture is optional; pointerup still ends the show */
     }
-
-    pressRef.current = { id: event.pointerId, x: event.clientX, y: event.clientY, bursted: false };
-    clearHold();
-    holdTimer.current = window.setTimeout(() => {
-      const press = pressRef.current;
-      if (!press) return;
-      press.bursted = true;
-      burst();
-      holdLoop.current = window.setInterval(burst, HOLD_EVERY_MS);
-    }, HOLD_MS);
-  }
-
-  function onPointerMove(event: PointerEvent<HTMLDivElement>) {
-    const press = pressRef.current;
-    if (!press || press.id !== event.pointerId) return;
-    if (Math.hypot(event.clientX - press.x, event.clientY - press.y) <= TAP_SLOP) return;
-    pressRef.current = null;
-    clearHold();
+    startShow(event.pointerId);
   }
 
   function onPointerUp(event: PointerEvent<HTMLDivElement>) {
-    const press = pressRef.current;
-    clearHold();
-    pressRef.current = null;
-    if (!press || press.id !== event.pointerId || press.bursted) return;
-    if (isControl(event.target)) return;
-    if (Math.hypot(event.clientX - press.x, event.clientY - press.y) > TAP_SLOP) return;
-    burst();
+    if (pressId.current !== event.pointerId) return;
+    stopShow();
   }
 
   function onPointerCancel() {
-    pressRef.current = null;
-    clearHold();
+    stopShow();
   }
+
+  const overlay =
+    host === null
+      ? null
+      : createPortal(
+          <div className="pointer-events-none absolute inset-0 z-20 overflow-hidden rounded-[1.75rem]">
+            {bits.map((bit) => (
+              <span
+                key={bit.id}
+                className={
+                  bit.kind === "rocket"
+                    ? "invite-rocket"
+                    : bit.kind === "core"
+                      ? "invite-cracker-core"
+                      : bit.kind === "spark"
+                        ? "invite-sparkle"
+                        : "invite-cracker-streak"
+                }
+                style={{
+                  left: bit.x,
+                  top: bit.y,
+                  background: bit.color,
+                  width: bit.kind === "core" ? 7 : bit.length,
+                  ["--rot" as string]: `${bit.rot}deg`,
+                  ["--dist" as string]: `${bit.dist}px`,
+                  ["--delay" as string]: `${bit.delay}ms`,
+                  ["--dur" as string]: `${bit.duration}ms`,
+                }}
+                aria-hidden
+              />
+            ))}
+          </div>,
+          host,
+        );
 
   return (
     <div
       ref={rootRef}
       className={className}
       onPointerDown={onPointerDown}
-      onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
       onPointerCancel={onPointerCancel}
     >
       {children}
-      {crackers.map((cracker) => (
-        <span
-          key={cracker.id}
-          className={cracker.kind === "core" ? "invite-cracker-core" : "invite-cracker-streak"}
-          style={{
-            left: cracker.x,
-            top: cracker.y,
-            background: cracker.color,
-            width: cracker.kind === "core" ? 6 : cracker.length,
-            ["--rot" as string]: `${cracker.rot}deg`,
-            ["--dist" as string]: `${cracker.dist}px`,
-            ["--delay" as string]: `${cracker.delay}ms`,
-            ["--dur" as string]: `${cracker.duration}ms`,
-          }}
-          aria-hidden
-        />
-      ))}
+      {overlay}
     </div>
   );
 }
