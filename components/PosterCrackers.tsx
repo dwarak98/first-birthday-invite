@@ -2,6 +2,7 @@
 
 import { useLayoutEffect, useRef, useState, type PointerEvent, type ReactNode } from "react";
 import { createPortal } from "react-dom";
+import { armFireworkSound, playFireworkCrackle } from "@/lib/fireworkSound";
 
 type Bit = {
   id: number;
@@ -63,6 +64,7 @@ export function PosterCrackers({
   }
 
   function spawnBurst(x: number, y: number, radius: number) {
+    playFireworkCrackle();
     const next: Bit[] = [
       {
         id: ++nextId.current,
@@ -204,6 +206,7 @@ export function PosterCrackers({
       /* capture is optional; pointerup still ends the show */
     }
     const point = posterPoint(poster, event.clientX, event.clientY);
+    armFireworkSound();
     startShow(event.pointerId, point.x, point.y);
   }
 
