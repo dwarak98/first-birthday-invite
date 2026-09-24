@@ -54,11 +54,10 @@ export function Invitation({ locale }: { locale: Locale }) {
             <LanguageToggle locale={locale} />
           </div>
 
-          <div className="mt-2 flex min-h-[13rem] flex-1 items-center justify-center sm:min-h-[14rem] sm:flex-none">
-            <FirstBirthdayMark
-              title={age}
-              className="h-full w-auto max-h-[18.5rem] max-w-[min(100%,18.5rem)]"
-            />
+          <div className="mt-2 flex flex-1 items-center justify-center sm:flex-none">
+            <div className="aspect-square w-full max-w-[18.5rem]">
+              <FirstBirthdayMark title={age} className="block h-full w-full" />
+            </div>
           </div>
 
           <header className="mt-2 text-center">

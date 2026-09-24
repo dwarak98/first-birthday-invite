@@ -22,10 +22,13 @@ export function FirstBirthdayMark({
 
   return (
     <svg
-      width={className ? undefined : size}
-      height={className ? undefined : size}
+      width={size}
+      height={size}
       className={className}
       viewBox="0 0 140 140"
+      preserveAspectRatio="xMidYMid meet"
+      overflow="visible"
+      xmlns="http://www.w3.org/2000/svg"
       fill="none"
       role="img"
       aria-label={title}

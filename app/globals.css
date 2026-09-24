@@ -63,14 +63,14 @@ body {
 }
 
 .flame {
-  transform-box: fill-box;
-  transform-origin: 50% 100%;
+  transform-box: view-box;
+  transform-origin: 70px 36px;
   animation: flame-flicker 1.2s ease-in-out infinite;
 }
 
 .flame-halo {
-  transform-box: fill-box;
-  transform-origin: 50% 80%;
+  transform-box: view-box;
+  transform-origin: 70px 28px;
   animation: flame-glow 2s ease-in-out infinite;
 }
 
@@ -79,8 +79,8 @@ body {
 }
 
 .flame-inner {
-  transform-box: fill-box;
-  transform-origin: 50% 100%;
+  transform-box: view-box;
+  transform-origin: 70px 29px;
   animation: flame-core 0.9s ease-in-out infinite;
 }
 
