@@ -11,11 +11,11 @@ export function isLocale(value: string): value is Locale {
  */
 export const event = {
   childNameEn: "Shrishtiika Dwaraknaath",
-  childNameTa: "ஸ்ரிஷ்டிகா த்வர்கநாத்",
+  childNameTa: "ஸ்ரிஷ்டிகா துவாரக்நாத்",
   ageEn: "1st Birthday",
   ageTa: "முதல் பிறந்தநாள்",
   hostsEn: "Dwaraknaath, Srivarsini and Shrishtiika",
-  hostsTa: "த்வர்கநாத், ஸ்ரீவர்சினி மற்றும் ஸ்ரிஷ்டிகா",
+  hostsTa: "துவாரக்நாத், ஸ்ரீவர்சினி மற்றும் ஸ்ரிஷ்டிகா",
   dateEn: "Saturday, 26th September 2026",
   dateTa: "சனிக்கிழமை, 26 செப்டம்பர் 2026",
   timeEn: "6:00 PM – 8:00 PM",
